@@ -1,3 +1,4 @@
 import 'package:mobx/mobx.dart';
 
-final toggleDrawer = Observable(0);
+final toggleLeftDrawer = Observable(0);
+final toggleRightDrawer = Observable(0);

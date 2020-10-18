@@ -20,9 +20,13 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   void initState() {
     super.initState();
-    toggleDrawer.observe((value) {
+    toggleLeftDrawer.observe((value) {
       _innerDrawerKey.currentState
           .toggle(direction: InnerDrawerDirection.start);
+    });
+    toggleRightDrawer.observe((value) {
+      _innerDrawerKey.currentState
+          .toggle(direction: InnerDrawerDirection.end);
     });
   }
 
