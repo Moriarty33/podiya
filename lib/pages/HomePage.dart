@@ -18,18 +18,11 @@ class _HomePageState extends State<HomePage> {
             left: LeftPage(),
             right: RightPage(),
             main: Scaffold(
-              backgroundColor: Colors.white,
-              body: Column(children: [
-                MainHeaderWidget(),
-                Container(
+                backgroundColor: Colors.white,
+                body: MainHeaderWidget(
+                    body: Container(
                   margin: EdgeInsets.only(left: 16, right: 16, top: 32),
-                  child: Column(
-                    children: [
-                        MainAgentsWidget()
-                      ]
-                    ),
-                )
-              ]),
-            )));
+                  child: Column(children: [MainAgentsWidget()]),
+                )))));
   }
 }
