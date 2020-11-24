@@ -35,3 +35,9 @@ const TextStyle AgentTabStyle =
     TextStyle(color: Colors.grey, fontWeight: FontWeight.w700, fontSize: 13);
 const TextStyle AgentTabSelectedStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18);
+
+const TextStyle ShowMoreStyle = TextStyle(
+    color: Color.fromARGB(255, 8, 94, 188),
+    fontWeight: FontWeight.w700,
+    fontSize: 9,
+    letterSpacing: 0.35);

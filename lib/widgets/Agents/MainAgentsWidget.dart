@@ -10,10 +10,21 @@ class MainAgentsWidget extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [Text("Підрядники", style: HeaderStyle)],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          children: [
+            Text("Підрядники", style: HeaderStyle),
+            Text("Показати Більше", style: ShowMoreStyle),
+          ],
         ),
         MainAgentsTabs(),
-        MainAgentsList()
+        MainAgentsList(agents: [
+          "Святослав Руденко",
+          "Святослав Руденко",
+          "Святослав Руденко",
+          "Святослав Руденко",
+          "Святослав Руденко"
+        ])
       ],
     );
   }

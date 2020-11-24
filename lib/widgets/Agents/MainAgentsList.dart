@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:podiya/widgets/Agents/AgentCardWidget.dart';
 
 class MainAgentsList extends StatelessWidget {
-  final List<String> agents = [
-    "Святослав Руденко",
-    "Святослав Руденко",
-    "Святослав Руденко",
-    "Святослав Руденко",
-    "Святослав Руденко"
-  ];
+  final List<String> agents;
+
+  MainAgentsList({this.agents});
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +14,7 @@ class MainAgentsList extends StatelessWidget {
         child: ListView(
             scrollDirection: Axis.horizontal,
             children: List.generate(agents.length, (index) {
-              return Container(
-                width: 108,
-                margin: EdgeInsets.only(right: 10),
-                decoration: new BoxDecoration(
-                  borderRadius: new BorderRadius.circular(16.0),
-                  color: Colors.grey,
-                ),
-                child: Container(
-                    alignment: Alignment.bottomLeft,
-                    padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                    child: Text(agents[index])),
-              );
+              return AgentCardWidget(name: agents[index]);
             })));
   }
 }
