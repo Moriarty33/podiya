@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:podiya/dao/UserDataDao.dart';
+import 'package:podiya/model/UserData.dart';
 
 import '../../theme.dart';
 
@@ -27,16 +29,21 @@ class MainToDoWidget extends StatelessWidget {
   Widget createTodo() {
     return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.black,
-          ),
-          height: 56,
-          width: 56,
+        GestureDetector(
+          onTap: () async {
+            print("New TODO");
+          },
           child: Container(
-              color: Colors.transparent,
-              child: Icon(Icons.add, color: Colors.white)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.black,
+            ),
+            height: 56,
+            width: 56,
+            child: Container(
+                color: Colors.transparent,
+                child: Icon(Icons.add, color: Colors.white)),
+          ),
         ),
         Text("")
       ],

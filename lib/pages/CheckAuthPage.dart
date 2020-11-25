@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:podiya/pages/AuthPage.dart';
 import 'package:podiya/pages/HomePage.dart';
+
 import 'SplashPage.dart';
 
 class CheckAuthPage extends StatefulWidget {
@@ -18,7 +19,6 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
       WidgetsFlutterBinding.ensureInitialized();
       Firebase.initializeApp().then((value) {
         User user = FirebaseAuth.instance.currentUser;
-        print(user);
         if (user != null) {
           Navigator.pushReplacement(
             context,
