@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:podiya/dao/UserDataDao.dart';
-import 'package:podiya/model/UserData.dart';
 
 import '../../theme.dart';
 

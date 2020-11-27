@@ -20,6 +20,7 @@ class MainAgentsTabs extends StatelessWidget {
       height: 32,
       alignment: Alignment.centerLeft,
       child: Observer(
+          name: "agentType",
           builder: (_) => ListView(
               scrollDirection: Axis.horizontal,
               children: List.generate(agentTypes.length, (index) {
