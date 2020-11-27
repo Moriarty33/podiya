@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:podiya/state/stepIndex.dart';
+import 'package:podiya/state/wizardState.dart';
 import 'package:podiya/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<StepIndex>(
-          create: (_) => StepIndex(),
+        Provider<WizardState>(
+          create: (_) => WizardState(),
         )
       ],
       child: MaterialApp(

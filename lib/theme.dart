@@ -41,3 +41,7 @@ const TextStyle ShowMoreStyle = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 9,
     letterSpacing: 0.35);
+const TextStyle WizardTitle =
+    TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18);
+const TextStyle WizardSubTitle =
+    TextStyle(color: Colors.black54, fontSize: 12);

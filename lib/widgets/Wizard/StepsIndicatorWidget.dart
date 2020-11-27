@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:podiya/state/stepIndex.dart';
+import 'package:podiya/state/wizardState.dart';
 import 'package:provider/provider.dart';
 
 class StepsIndicatorWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class StepsIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<int> list = Iterable<int>.generate(this.count - 1).toList();
-    StepIndex stepIndex = Provider.of<StepIndex>(context);
+    WizardState wizardState = Provider.of<WizardState>(context);
 
     return Container(
       height: 25,
@@ -19,7 +19,7 @@ class StepsIndicatorWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: List.generate(list.length, (index) {
               return step(index + 1,
-                  stepIndex.step == index ? Colors.black : Colors.grey);
+                  wizardState.step == index ? Colors.black : Colors.grey);
             })),
       ),
     );

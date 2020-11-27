@@ -1,12 +1,12 @@
 import 'package:mobx/mobx.dart';
 
-part 'stepIndex.g.dart';
+part 'wizardState.g.dart';
 
 // This is the class used by rest of your codebase
-class StepIndex = _StepIndex with _$StepIndex;
+class WizardState = _WizardState with _$WizardState;
 
 // The store-class
-abstract class _StepIndex with Store {
+abstract class _WizardState with Store {
   @observable
   int step = 0;
 
