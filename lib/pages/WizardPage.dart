@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:podiya/state/wizardState.dart';
 import 'package:podiya/widgets/SpinnerWidget.dart';
 import 'package:podiya/widgets/Wizard/EventAgentTypeStep.dart';
@@ -20,9 +20,17 @@ class WizardPage extends StatefulWidget {
 }
 
 class _WizardPageState extends State<WizardPage> {
+  Widget _stepWidget = GeneralInfo();
+
   @override
   Widget build(BuildContext context) {
     WizardState wizardState = Provider.of<WizardState>(context);
+
+    reaction((_) => wizardState.step, (value) {
+      setState(() {
+        _stepWidget = renderWidget(value);
+      });
+    });
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -48,35 +56,39 @@ class _WizardPageState extends State<WizardPage> {
             brightness: Brightness.light),
         body: Container(
           padding: EdgeInsets.all(16),
-          child: Observer(builder: (_) {
-            switch (wizardState.step) {
-              case 0:
-                return GeneralInfo();
-              case 1:
-                return EventNameStep();
-              case 2:
-                return EventDateStep();
-              case 3:
-                return EventCityStep();
-              case 4:
-                return EventAgentTypeStep();
-              case 5:
-                finish(context);
-                return SpinnerWidget(heightFactor: 0);
-              default:
-                return GeneralInfo();
-            }
-          }),
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 200),
+            child: _stepWidget,
+          ),
         ));
   }
 
   finish(context) {
     Future(() {
- Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
     });
-   
+  }
+
+  Widget renderWidget(step) {
+    switch (step) {
+      case 0:
+        return GeneralInfo();
+      case 1:
+        return EventNameStep();
+      case 2:
+        return EventDateStep();
+      case 3:
+        return EventCityStep();
+      case 4:
+        return EventAgentTypeStep();
+      case 5:
+        finish(context);
+        return SpinnerWidget(heightFactor: 0);
+      default:
+        return GeneralInfo();
+    }
   }
 }

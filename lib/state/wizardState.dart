@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:podiya/model/UserData.dart';
 
 part 'wizardState.g.dart';
 
@@ -10,6 +11,9 @@ abstract class _WizardState with Store {
   @observable
   int step = 0;
 
+  @observable
+  UserType type;
+
   @action
   void increment() {
     step++;
@@ -18,5 +22,10 @@ abstract class _WizardState with Store {
   @action
   void decrement() {
     step--;
+  }
+
+  @action
+  void setType(UserType userType) {
+    type = userType;
   }
 }

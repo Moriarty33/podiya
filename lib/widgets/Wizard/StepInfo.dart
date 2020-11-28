@@ -12,7 +12,7 @@ class StepInfo extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(title, style: WizardTitle),
       SizedBox(height: 12),
-      Text(subtitle, style: WizardSubTitle),
+      Text(subtitle, style: WizardSubTitle)
     ]);
   }
 }
