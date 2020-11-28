@@ -30,6 +30,7 @@ class _MainHeaderWidgetState extends State<MainHeaderWidget> {
             SliverAppBar(
               expandedHeight: expandedHeight,
               backgroundColor: Colors.white,
+              brightness: Brightness.light,
               floating: true,
               pinned: true,
               leading: menu(),
