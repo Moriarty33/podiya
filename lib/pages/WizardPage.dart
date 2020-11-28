@@ -28,7 +28,7 @@ class _WizardPageState extends State<WizardPage> {
 
     reaction((_) => wizardState.step, (value) {
       setState(() {
-        _stepWidget = renderWidget(value);
+        _stepWidget = renderWidget(value, context);
       });
     });
 
@@ -72,7 +72,7 @@ class _WizardPageState extends State<WizardPage> {
     });
   }
 
-  Widget renderWidget(step) {
+  Widget renderWidget(step, context) {
     switch (step) {
       case 0:
         return GeneralInfo();
