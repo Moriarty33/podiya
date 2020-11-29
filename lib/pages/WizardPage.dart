@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
+import 'package:podiya/model/UserData.dart';
 import 'package:podiya/state/wizardState.dart';
 import 'package:podiya/widgets/SpinnerWidget.dart';
+import 'package:podiya/widgets/Wizard/AgentContactStep.dart';
+import 'package:podiya/widgets/Wizard/AgentGeneralInfoStep.dart';
+import 'package:podiya/widgets/Wizard/AgentImageStep.dart';
 import 'package:podiya/widgets/Wizard/EventAgentTypeStep.dart';
 import 'package:podiya/widgets/Wizard/EventCityStep.dart';
 import 'package:podiya/widgets/Wizard/EventDateStep.dart';
@@ -28,7 +32,7 @@ class _WizardPageState extends State<WizardPage> {
 
     reaction((_) => wizardState.step, (value) {
       setState(() {
-        _stepWidget = renderWidget(value, context);
+        _stepWidget = renderWidget(value, wizardState.type, context);
       });
     });
 
@@ -72,23 +76,39 @@ class _WizardPageState extends State<WizardPage> {
     });
   }
 
-  Widget renderWidget(step, context) {
-    switch (step) {
-      case 0:
-        return GeneralInfo();
-      case 1:
-        return EventNameStep();
-      case 2:
-        return EventDateStep();
-      case 3:
-        return EventCityStep();
-      case 4:
-        return EventAgentTypeStep();
-      case 5:
-        finish(context);
-        return SpinnerWidget(heightFactor: 0);
-      default:
-        return GeneralInfo();
+  Widget renderWidget(step, UserType type, context) {
+    if (step == 0) {
+      return GeneralInfo();
     }
+    if (step == 5) {
+      finish(context);
+      return SpinnerWidget(heightFactor: 0);
+    }
+
+    if (type == UserType.user) {
+      switch (step) {
+        case 1:
+          return EventNameStep();
+        case 2:
+          return EventDateStep();
+        case 3:
+          return EventCityStep();
+        case 4:
+          return EventAgentTypeStep();
+      }
+    } else {
+      switch (step) {
+        case 1:
+          return EventAgentTypeStep();
+        case 2:
+          return AgentGeneralInfoStep();
+        case 3:
+          return AgentContactStep();
+        case 4:
+          return AgentImageStep();
+      }
+    }
+
+    return GeneralInfo();
   }
 }

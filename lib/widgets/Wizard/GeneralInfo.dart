@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:podiya/model/UserData.dart';
 import 'package:podiya/state/wizardState.dart';
-import 'package:podiya/widgets/Wizard/StepButton.dart';
 import 'package:provider/provider.dart';
 
 import 'StepInfo.dart';

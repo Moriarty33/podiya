@@ -39,7 +39,7 @@ const TextStyle AgentTabSelectedStyle =
 const TextStyle ShowMoreStyle = TextStyle(
     color: Color.fromARGB(255, 8, 94, 188),
     fontWeight: FontWeight.w700,
-    fontSize: 9,
+    fontSize: 10,
     letterSpacing: 0.35);
 const TextStyle WizardTitle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18);
