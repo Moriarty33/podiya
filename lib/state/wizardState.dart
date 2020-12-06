@@ -14,6 +14,12 @@ abstract class _WizardState with Store {
   @observable
   UserType type;
 
+  @observable
+  String eventName;
+
+  @observable
+  DateTime eventDate;
+
   @action
   void increment() {
     step++;
@@ -27,5 +33,17 @@ abstract class _WizardState with Store {
   @action
   void setType(UserType userType) {
     type = userType;
+  }
+
+  @action
+  void setName(String name) {
+    eventName = name;
+    this.increment();
+  }
+
+  @action
+  void setDate(DateTime date) {
+    eventDate = date;
+    this.increment();
   }
 }
