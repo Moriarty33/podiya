@@ -25,7 +25,7 @@ abstract class _WizardState with Store {
   int eventCity = 0;
 
   @observable
-  List<int> agentTypeIds = [];
+  List<String> agentTypeIds = [];
 
   @action
   void increment() {
@@ -60,7 +60,7 @@ abstract class _WizardState with Store {
   }
 
   @action
-  void setAgentTypesIds(List<int> ids) {
+  void setAgentTypesIds(List<String> ids) {
     agentTypeIds = ids;
   }
 

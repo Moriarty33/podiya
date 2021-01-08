@@ -3,14 +3,16 @@ import 'package:podiya/model/AgentType.dart';
 
 class TypesDao {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  static final path = "types";
+  static final path = "agentTypes";
 
   static Future<List<AgentType>> getAgentTypes() {
-    return firestore.collection(path).doc("agents").get().then((value) {
-      List<AgentType> agentList = new List();
-      List.castFrom(value['types'])
-          .forEach((element) => agentList.add(AgentType.fromJson(element)));
-      return agentList;
-    });
+    return firestore
+        .collection(path)
+        .get()
+        .then((value) => value.docs.map((element) {
+              Map<String, dynamic> data = element.data();
+              data["id"] = element.id;
+              return AgentType.fromJson(data);
+            }).toList());
   }
 }

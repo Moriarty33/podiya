@@ -7,7 +7,7 @@ class Event {
   String name;
   DateTime date;
   int city;
-  List<int> types;
+  List<String> types;
   
   String userId;
 

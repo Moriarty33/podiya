@@ -4,7 +4,7 @@ part 'AgentType.g.dart';
 
 @JsonSerializable()
 class AgentType {
-  int id;
+  String id;
   String name;
 
   AgentType({this.id, this.name});

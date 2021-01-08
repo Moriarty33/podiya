@@ -65,12 +65,12 @@ class _AgentTypeTagsState extends State<AgentTypeTags> {
     );
   }
 
-  List<int> _getAllItem() {
+  List<String> _getAllItem() {
     List<Item> lst = _tagStateKey.currentState?.getAllItem;
     if (lst != null) {
-      List<int> ids = lst
+      List<String> ids = lst
           .where((a) => a.active == true)
-          .map((e) => e.customData as int)
+          .map((e) => e.customData as String)
           .toList();
       return ids;
     } else {
