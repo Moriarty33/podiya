@@ -3,6 +3,7 @@ import 'package:podiya/model/UserData.dart';
 import 'package:podiya/state/wizardState.dart';
 import 'package:provider/provider.dart';
 
+import 'AgentTypeTags.dart';
 import 'StepButton.dart';
 import 'StepInfo.dart';
 
@@ -29,6 +30,8 @@ class EventAgentTypeStep extends StatelessWidget {
         Column(
           children: [
             StepInfo(title: title, subtitle: subtitle),
+            SizedBox(height: 24),
+            AgentTypeTags()
           ],
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [

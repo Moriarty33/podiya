@@ -20,6 +20,12 @@ abstract class _WizardState with Store {
   @observable
   DateTime eventDate;
 
+  @observable
+  int eventCity;
+
+  @observable
+  List<int> agentTypeIds = [];
+
   @action
   void increment() {
     step++;
@@ -45,5 +51,15 @@ abstract class _WizardState with Store {
   void setDate(DateTime date) {
     eventDate = date;
     this.increment();
+  }
+
+  @action
+  void setCity(int cityId) {
+    eventCity = cityId;
+  }
+
+  @action
+  void setAgentTypesIds(List<int> ids) {
+    agentTypeIds = ids;
   }
 }
