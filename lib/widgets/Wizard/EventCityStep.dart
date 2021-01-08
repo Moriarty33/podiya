@@ -12,9 +12,6 @@ class EventCityStep extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> cityNames = cities.map((e) => e["name"] as String).toList();
     WizardState wizardState = Provider.of<WizardState>(context);
-    String selectedItem = wizardState.eventCity != null
-        ? findCityById(wizardState.eventCity)["name"]
-        : cityNames[0];
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +28,7 @@ class EventCityStep extends StatelessWidget {
               showSearchBox: true,
               items: cityNames,
               label: "Вибране місто",
-              selectedItem: selectedItem,
+              selectedItem: findCityById(wizardState.eventCity)["name"],
               onChanged: (cityName) {
                 wizardState.setCity(findCityByName(cityName)["id"] as int);
               },

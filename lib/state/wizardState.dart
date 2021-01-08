@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:podiya/model/Event.dart';
 import 'package:podiya/model/UserData.dart';
 
 part 'wizardState.g.dart';
@@ -21,7 +22,7 @@ abstract class _WizardState with Store {
   DateTime eventDate;
 
   @observable
-  int eventCity;
+  int eventCity = 0;
 
   @observable
   List<int> agentTypeIds = [];
@@ -61,5 +62,10 @@ abstract class _WizardState with Store {
   @action
   void setAgentTypesIds(List<int> ids) {
     agentTypeIds = ids;
+  }
+
+  Event getEvent() {
+    return new Event(
+        name: eventName, city: eventCity, date: eventDate, types: agentTypeIds);
   }
 }

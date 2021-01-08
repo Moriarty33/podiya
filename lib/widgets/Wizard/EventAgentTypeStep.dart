@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'AgentTypeTags.dart';
 import 'StepButton.dart';
 import 'StepInfo.dart';
+import 'WizardService.dart';
 
 class EventAgentTypeStep extends StatelessWidget {
   @override
@@ -36,7 +37,13 @@ class EventAgentTypeStep extends StatelessWidget {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
-          StepButton(text: nextButton),
+          StepButton(
+              text: nextButton,
+              cb: () {
+                if (wizardState.type == UserType.user) {
+                  WizardService.finish(context, wizardState.getEvent());
+                }
+              }),
         ])
       ],
     );

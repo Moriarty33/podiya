@@ -16,7 +16,6 @@ import 'package:podiya/widgets/Wizard/StepsIndicatorWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../theme.dart';
-import 'HomePage.dart';
 
 class WizardPage extends StatefulWidget {
   @override
@@ -25,10 +24,11 @@ class WizardPage extends StatefulWidget {
 
 class _WizardPageState extends State<WizardPage> {
   Widget _stepWidget = GeneralInfo();
+  WizardState wizardState;
 
   @override
   Widget build(BuildContext context) {
-    WizardState wizardState = Provider.of<WizardState>(context);
+    wizardState = Provider.of<WizardState>(context);
 
     reaction((_) => wizardState.step, (value) {
       setState(() {
@@ -67,21 +67,11 @@ class _WizardPageState extends State<WizardPage> {
         ));
   }
 
-  finish(context) {
-    Future(() {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    });
-  }
-
   Widget renderWidget(step, UserType type, context) {
     if (step == 0) {
       return GeneralInfo();
     }
     if (step == 5) {
-      finish(context);
       return SpinnerWidget(heightFactor: 0);
     }
 
