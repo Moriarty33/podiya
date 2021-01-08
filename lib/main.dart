@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:podiya/state/homeState.dart';
 import 'package:podiya/state/wizardState.dart';
 import 'package:podiya/theme.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<WizardState>(
           create: (_) => WizardState(),
+        ),
+        Provider<HomeState>(
+          create: (_) => HomeState(),
         )
       ],
       child: MaterialApp(

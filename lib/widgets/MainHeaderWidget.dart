@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:podiya/state/drawer.dart';
+import 'package:podiya/state/homeState.dart';
+import 'package:provider/provider.dart';
 
 import '../theme.dart';
 
@@ -15,6 +17,8 @@ class MainHeaderWidget extends StatefulWidget {
 class _MainHeaderWidgetState extends State<MainHeaderWidget> {
   ScrollController _scrollController;
   double expandedHeight = 228.0;
+  HomeState homeState;
+
   @override
   void initState() {
     _scrollController = ScrollController()..addListener(() => setState(() {}));
@@ -23,6 +27,7 @@ class _MainHeaderWidgetState extends State<MainHeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    homeState = Provider.of<HomeState>(context);
     return NestedScrollView(
         controller: _scrollController,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -105,7 +110,7 @@ class _MainHeaderWidgetState extends State<MainHeaderWidget> {
           Container(
               margin: EdgeInsets.only(top: 18, bottom: 4),
               child: Text("Залишилось 29 днів", style: EventDateMainPageStyle)),
-          Text("Корпоратив", style: EventNameMainPageStyle),
+          Text(homeState.event.name.toString(), style: EventNameMainPageStyle),
         ]),
         background: Image.asset(
           "images/meet.jpg",

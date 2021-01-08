@@ -1,6 +1,6 @@
+import 'package:podiya/model/Event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:podiya/model/Event.dart';
 
 class EventDao {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -12,7 +12,15 @@ class EventDao {
     return firestore.collection(path).add(event.toJson());
   }
 
-  static getEvents() {
-    return firestore.collection(path).where("userId", isEqualTo: user.uid);
+  static Future<List<Event>> getEvents() {
+    return firestore
+        .collection(path)
+        .where("userId", isEqualTo: user.uid)
+        .get()
+        .then((value) {
+      return value.docs
+          .map((element) => Event.fromJson(element.data()))
+          .toList();
+    });
   }
 }
