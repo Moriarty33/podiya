@@ -21,31 +21,37 @@ class GeneralInfo extends StatelessWidget {
                 title: "Привіт, " + name + ", обери роль, яка тобі підходить!",
                 subtitle: "Обери свою роль."),
             SizedBox(height: 64),
-            RaisedButton(
-              color: Colors.white,
-              padding:
-                  EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
-              onPressed: () {
-                wizardState.setType(UserType.agent);
-                wizardState.increment();
-              },
-              child: Text(
-                "Я надаю послуги для подій!",
-                style: TextStyle(color: Colors.black, fontSize: 15),
+            SizedBox(
+              width: 250,
+              child: RaisedButton(
+                color: Colors.white,
+                padding:
+                    EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
+                onPressed: () {
+                  wizardState.setType(UserType.agent);
+                  wizardState.increment();
+                },
+                child: Text(
+                  "Я надаю послуги для подій!",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
               ),
             ),
-            SizedBox(height: 32),
-            RaisedButton(
-              color: Colors.black,
-              padding:
-                  EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
-              onPressed: () {
-                wizardState.setType(UserType.user);
-                wizardState.increment();
-              },
-              child: Text(
-                "Я Хочу створити Подію!",
-                style: TextStyle(color: Colors.white, fontSize: 15),
+            SizedBox(height: 24),
+            SizedBox(
+              width: 250,
+              child: RaisedButton(
+                color: Colors.black,
+                padding:
+                    EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
+                onPressed: () {
+                  wizardState.setType(UserType.user);
+                  wizardState.increment();
+                },
+                child: Text(
+                  "Я Хочу створити Подію!",
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
               ),
             ),
           ],

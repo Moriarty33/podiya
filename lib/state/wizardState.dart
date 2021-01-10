@@ -27,6 +27,14 @@ abstract class _WizardState with Store {
   @observable
   List<String> agentTypeIds = [];
 
+  // AGENT
+
+  @observable
+  String agentDescription;
+
+  @observable
+  double agentAmount = 1000;
+
   @action
   void increment() {
     step++;
@@ -62,6 +70,16 @@ abstract class _WizardState with Store {
   @action
   void setAgentTypesIds(List<String> ids) {
     agentTypeIds = ids;
+  }
+
+  @action
+  void setAgentDescription(String des) {
+    agentDescription = des;
+  }
+
+  @action
+  void setAgentAmount(double a) {
+    agentAmount = a;
   }
 
   Event getEvent() {

@@ -42,6 +42,8 @@ class EventAgentTypeStep extends StatelessWidget {
               cb: () {
                 if (wizardState.type == UserType.user) {
                   WizardService.finish(context, wizardState.getEvent(), wizardState.type);
+                } else {
+                  wizardState.increment();
                 }
               }),
         ])

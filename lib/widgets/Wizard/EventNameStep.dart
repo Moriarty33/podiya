@@ -27,6 +27,8 @@ class EventNameStep extends StatelessWidget {
               key: _formKey,
               child: Column(children: [
                 TextFormField(
+                  decoration: InputDecoration(
+                        hintText: 'Напишу назву події яку б ти хотів бачити'),
                   controller: field,
                   validator: (value) {
                     if (value.trim().isEmpty) {

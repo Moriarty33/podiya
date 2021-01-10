@@ -25,6 +25,7 @@ class WizardPage extends StatefulWidget {
 class _WizardPageState extends State<WizardPage> {
   Widget _stepWidget = GeneralInfo();
   WizardState wizardState;
+  int _stepsCount = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class _WizardPageState extends State<WizardPage> {
     reaction((_) => wizardState.step, (value) {
       setState(() {
         _stepWidget = renderWidget(value, wizardState.type, context);
+        _stepsCount = wizardState.type == UserType.agent ? 7 : 6;
       });
     });
 
@@ -51,7 +53,7 @@ class _WizardPageState extends State<WizardPage> {
                   SizedBox(height: 24),
                   Container(
                     alignment: AlignmentDirectional.topStart,
-                    child: StepsIndicatorWidget(count: 6),
+                    child: StepsIndicatorWidget(count: _stepsCount),
                   ),
                 ],
               ),
@@ -71,9 +73,6 @@ class _WizardPageState extends State<WizardPage> {
     if (step == 0) {
       return GeneralInfo();
     }
-    if (step == 5) {
-      return SpinnerWidget(heightFactor: 0);
-    }
 
     if (type == UserType.user) {
       switch (step) {
@@ -85,6 +84,8 @@ class _WizardPageState extends State<WizardPage> {
           return EventCityStep();
         case 4:
           return EventAgentTypeStep();
+        case 5:
+          return SpinnerWidget(heightFactor: 0);
       }
     } else {
       switch (step) {
@@ -93,9 +94,13 @@ class _WizardPageState extends State<WizardPage> {
         case 2:
           return AgentGeneralInfoStep();
         case 3:
-          return AgentContactStep();
+          return EventCityStep();
         case 4:
+          return AgentContactStep();
+        case 5:
           return AgentImageStep();
+        case 6:
+          return SpinnerWidget(heightFactor: 0);
       }
     }
 
