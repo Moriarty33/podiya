@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:podiya/model/AgentLinks.dart';
 import 'package:podiya/model/Event.dart';
 import 'package:podiya/model/UserData.dart';
 
@@ -31,6 +32,15 @@ abstract class _WizardState with Store {
 
   @observable
   String agentDescription;
+
+  @observable
+  List<int> agentCitiesIds = [];
+
+  @observable
+  String agentPhoneNumber;
+
+  @observable
+  AgentLinks agentLinks = AgentLinks();
 
   @observable
   double agentAmount = 1000;
@@ -80,6 +90,21 @@ abstract class _WizardState with Store {
   @action
   void setAgentAmount(double a) {
     agentAmount = a;
+  }
+
+  @action
+  void setAgentCitiesIds(List<int> list) {
+    agentCitiesIds = list;
+  }
+
+  @action
+  void setAgentPhoneNumber(String phoneNumber) {
+    agentPhoneNumber = phoneNumber;
+  }
+
+  @action
+  void setAgentLink(AgentLinks links) {
+    agentLinks = links;
   }
 
   Event getEvent() {

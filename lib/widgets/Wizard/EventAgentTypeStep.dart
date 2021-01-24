@@ -35,6 +35,7 @@ class EventAgentTypeStep extends StatelessWidget {
             AgentTypeTags()
           ],
         ),
+         SizedBox(height: 48),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
           StepButton(

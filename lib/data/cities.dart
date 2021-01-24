@@ -461,6 +461,8 @@ List cities = [
   {"id": 459, "name": "Угнів"}
 ];
 
+List<String> cityNames = cities.map((e) => e["name"] as String).toList();
+
 findCityByName(String name) {
   return cities.firstWhere((element) => element["name"] == name);
 }

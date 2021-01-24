@@ -10,7 +10,6 @@ import '../../data/cities.dart';
 class EventCityStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<String> cityNames = cities.map((e) => e["name"] as String).toList();
     WizardState wizardState = Provider.of<WizardState>(context);
 
     return Column(
@@ -35,6 +34,7 @@ class EventCityStep extends StatelessWidget {
             ),
           ],
         ),
+         SizedBox(height: 48),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
           StepButton(text: "Далі"),

@@ -16,6 +16,7 @@ class AgentImageStep extends StatelessWidget {
                 subtitle: "Останній крок - добав фото до свого профілю."),
           ],
         ),
+         SizedBox(height: 48),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
           StepButton(text: "Готово"),

@@ -28,7 +28,7 @@ class EventNameStep extends StatelessWidget {
               child: Column(children: [
                 TextFormField(
                   decoration: InputDecoration(
-                        hintText: 'Напишу назву події яку б ти хотів бачити'),
+                      hintText: 'Напишу назву події яку б ти хотів бачити'),
                   controller: field,
                   validator: (value) {
                     if (value.trim().isEmpty) {
@@ -39,6 +39,7 @@ class EventNameStep extends StatelessWidget {
                 )
               ]))
         ]),
+        SizedBox(height: 48),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
           StepButton(

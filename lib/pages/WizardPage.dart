@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:podiya/model/UserData.dart';
 import 'package:podiya/state/wizardState.dart';
 import 'package:podiya/widgets/SpinnerWidget.dart';
+import 'package:podiya/widgets/Wizard/AgentCitiesStep.dart';
 import 'package:podiya/widgets/Wizard/AgentContactStep.dart';
 import 'package:podiya/widgets/Wizard/AgentGeneralInfoStep.dart';
 import 'package:podiya/widgets/Wizard/AgentImageStep.dart';
@@ -60,13 +61,18 @@ class _WizardPageState extends State<WizardPage> {
             ),
             backgroundColor: Colors.white,
             brightness: Brightness.light),
-        body: Container(
-          padding: EdgeInsets.all(16),
-          child: AnimatedSwitcher(
-            duration: Duration(milliseconds: 200),
-            child: _stepWidget,
+        body: CustomScrollView(slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Container(
+              padding: EdgeInsets.all(16),
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 200),
+                child: _stepWidget,
+              ),
+            ),
           ),
-        ));
+        ]));
   }
 
   Widget renderWidget(step, UserType type, context) {
@@ -94,7 +100,7 @@ class _WizardPageState extends State<WizardPage> {
         case 2:
           return AgentGeneralInfoStep();
         case 3:
-          return EventCityStep();
+          return AgentCitiesStep();
         case 4:
           return AgentContactStep();
         case 5:

@@ -47,6 +47,7 @@ class AgentGeneralInfoStep extends StatelessWidget {
             slider()
           ],
         ),
+         SizedBox(height: 48),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
           StepButton(
@@ -54,7 +55,8 @@ class AgentGeneralInfoStep extends StatelessWidget {
               next: true,
               cb: () {
                 if (_formKey.currentState.validate()) {
-                  wizardState.setName(descriptionField.text.trim());
+                  wizardState.setAgentDescription(descriptionField.text.trim());
+                  wizardState.increment();
                 }
               }),
         ])
