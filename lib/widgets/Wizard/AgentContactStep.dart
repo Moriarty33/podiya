@@ -24,7 +24,7 @@ class AgentContactStep extends StatelessWidget {
                 title: "Розкажи нам більше про свою роботу!",
                 subtitle:
                     "Твоя контактна інформація. Додай свій номер телефону, посилання на сайт, соціальні мережі тощо."),
-            SizedBox(height: 48),
+            SizedBox(height: 32),
             Form(
               key: _formKey,
               child: Column(
