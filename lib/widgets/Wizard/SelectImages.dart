@@ -3,7 +3,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 
 class SelectImages extends StatefulWidget {
   final Function(List<Asset> images) cbImages;
-  final Function(Asset image) cbImage;
+  final Function(int image) cbImage;
 
   const SelectImages({
     Key key,
@@ -17,7 +17,7 @@ class SelectImages extends StatefulWidget {
 
 class _SelectImagesState extends State<SelectImages> {
   List<Asset> images = List<Asset>();
-  Asset image;
+  int image;
 
   @override
   void initState() {
@@ -30,15 +30,15 @@ class _SelectImagesState extends State<SelectImages> {
       shrinkWrap: true,
       children: List.generate(
         images.length,
-        (index) {
+        (int index) {
           Asset asset = images[index];
           return Stack(
             children: [
               InkWell(
                 onTap: () {
                   setState(() {
-                    image = asset;
-                    widget.cbImage(image);
+                    image = index;
+                    widget.cbImage(index);
                   });
                 },
                 child: AssetThumb(
@@ -47,7 +47,7 @@ class _SelectImagesState extends State<SelectImages> {
                   height: 300,
                 ),
               ),
-              image == asset
+              image == index
                   ? Positioned(
                       left: 8.0,
                       top: 8.0,

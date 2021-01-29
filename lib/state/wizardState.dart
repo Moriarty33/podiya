@@ -2,7 +2,6 @@ import 'package:mobx/mobx.dart';
 import 'package:podiya/model/AgentLinks.dart';
 import 'package:podiya/model/Event.dart';
 import 'package:podiya/model/UserData.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
 
 part 'wizardState.g.dart';
 
@@ -47,10 +46,10 @@ abstract class _WizardState with Store {
   double agentAmount = 1000;
 
   @observable
-  List<Asset> agentImages = [];
+  List<String> agentImages = [];
 
   @observable
-  Asset agentImage;
+  String agentImage;
 
   @action
   void increment() {
@@ -115,12 +114,12 @@ abstract class _WizardState with Store {
   }
 
   @action
-  void setAgentImage(Asset image) {
+  void setAgentImage(String image) {
     agentImage = image;
   }
 
   @action
-  void setAgentImages(List<Asset> images) {
+  void setAgentImages(List<String> images) {
     agentImages = images;
   }
 
