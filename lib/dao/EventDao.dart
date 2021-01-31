@@ -7,9 +7,20 @@ class EventDao {
   static final path = "events";
   static final User user = FirebaseAuth.instance.currentUser;
 
-  static saveEvent(Event event) {
+  static Future<String> saveEvent(Event event) {
     event.userId = user.uid;
-    return firestore.collection(path).add(event.toJson());
+    return firestore
+        .collection(path)
+        .add(event.toJson())
+        .then((value) => value.id);
+  }
+
+  static Future<Event> getEvent(id) {
+    return firestore
+        .collection(path)
+        .doc(id)
+        .get()
+        .then((value) => Event.fromJson(value.data()));
   }
 
   static Future<List<Event>> getEvents() {

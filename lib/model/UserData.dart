@@ -7,8 +7,9 @@ enum UserType { user, agent }
 @JsonSerializable()
 class UserData {
   final UserType type;
+  final String event;
 
-  UserData({this.type});
+  UserData({this.type, this.event});
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);

@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:podiya/model/Event.dart';
+import 'package:podiya/model/UserData.dart';
 
 part 'homeState.g.dart';
 
@@ -9,14 +10,18 @@ class HomeState = _HomeState with _$HomeState;
 // The store-class
 abstract class _HomeState with Store {
   @observable
-  Event event;
+  UserData userData;
 
   @observable
-  List<Event> events;
+  Event event;
 
   @action
-  void setEvents(List<Event> e) {
-    events = e;
-    event = e.last;
+  void setUserData(UserData u) {
+    userData = u;
+  }
+
+  @action
+  void setEvent(Event e) {
+    event = e;
   }
 }

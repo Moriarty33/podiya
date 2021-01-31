@@ -9,8 +9,8 @@ import 'package:podiya/pages/HomePage.dart';
 
 class WizardService {
   static userFinish(context, Event event) async {
-    await UserDataDao.createData(UserData(type: UserType.user));
-    await EventDao.saveEvent(event);
+    String id = await EventDao.saveEvent(event);
+    await UserDataDao.createData(UserData(type: UserType.user, event: id));
     Future(() {
       Navigator.pushReplacement(
         context,
