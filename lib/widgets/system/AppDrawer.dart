@@ -3,20 +3,15 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:podiya/state/drawer.dart';
 
 class AppDrawer extends StatefulWidget {
-  final Widget left;
-  final Widget right;
-  final Widget main;
+  final Widget child;
 
-  AppDrawer({this.left, this.right, this.main});
+  AppDrawer({this.child});
 
   @override
   _AppDrawerState createState() => _AppDrawerState();
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  final GlobalKey<InnerDrawerState> _innerDrawerKey =
-      GlobalKey<InnerDrawerState>();
-
   @override
   void initState() {
     super.initState();
@@ -25,8 +20,7 @@ class _AppDrawerState extends State<AppDrawer> {
           .toggle(direction: InnerDrawerDirection.start);
     });
     toggleRightDrawer.observe((value) {
-      _innerDrawerKey.currentState
-          .toggle(direction: InnerDrawerDirection.end);
+      _innerDrawerKey.currentState.toggle(direction: InnerDrawerDirection.end);
     });
   }
 
