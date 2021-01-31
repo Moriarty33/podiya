@@ -35,14 +35,14 @@ class EventAgentTypeStep extends StatelessWidget {
             AgentTypeTags()
           ],
         ),
-         SizedBox(height: 48),
+        SizedBox(height: 48),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           StepButton(text: "Назад", next: false),
           StepButton(
               text: nextButton,
               cb: () {
                 if (wizardState.type == UserType.user) {
-                  WizardService.finish(context, wizardState.getEvent(), wizardState.type);
+                  WizardService.userFinish(context, wizardState.getEvent());
                 } else {
                   wizardState.increment();
                 }

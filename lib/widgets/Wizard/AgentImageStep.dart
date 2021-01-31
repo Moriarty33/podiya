@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:podiya/dao/ImagesDao.dart';
 import 'package:podiya/state/wizardState.dart';
+import 'package:podiya/widgets/Wizard/WizardService.dart';
 import 'package:provider/provider.dart';
 
 import 'SelectImages.dart';
@@ -61,8 +62,11 @@ class AgentImageStep extends StatelessWidget {
       return;
     }
 
+    wizardState.increment();
+
     List<String> urls = await ImagesDao.uploadImages(uploadedImages);
     wizardState.setAgentImages(urls);
     wizardState.setAgentImage(urls[selectedImage]);
+    WizardService.agentFinish(context, wizardState.getAgent());
   }
 }

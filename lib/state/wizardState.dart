@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
+import 'package:podiya/model/Agent.dart';
 import 'package:podiya/model/AgentLinks.dart';
 import 'package:podiya/model/Event.dart';
 import 'package:podiya/model/UserData.dart';
@@ -126,5 +128,23 @@ abstract class _WizardState with Store {
   Event getEvent() {
     return new Event(
         name: eventName, city: eventCity, date: eventDate, types: agentTypeIds);
+  }
+
+  Agent getAgent() {
+    User user = FirebaseAuth.instance.currentUser;
+    String firstname = user.displayName.split(" ")[0];
+    String lastname = user.displayName.split(" ")[1];
+
+    return new Agent(
+        amount: agentAmount,
+        cities: agentCitiesIds,
+        description: agentDescription,
+        firstname: firstname,
+        lastname: lastname,
+        image: agentImage,
+        images: agentImages,
+        phoneNumber: agentPhoneNumber,
+        types: agentTypeIds,
+        links: agentLinks);
   }
 }
