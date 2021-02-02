@@ -1,4 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:podiya/dao/EventDao.dart';
+import 'package:podiya/dao/UserDataDao.dart';
 import 'package:podiya/model/Event.dart';
 import 'package:podiya/model/UserData.dart';
 
@@ -15,6 +17,19 @@ abstract class _HomeState with Store {
   @observable
   Event event;
 
+  @observable
+  int page = 0;
+
+  @action
+  Future<UserData> init() async {
+    UserData u = await UserDataDao.getData();
+    Event e = await EventDao.getEvent(u.event);
+    setUserData(u);
+    setEvent(e);
+
+    return userData;
+  }
+
   @action
   void setUserData(UserData u) {
     userData = u;
@@ -23,5 +38,10 @@ abstract class _HomeState with Store {
   @action
   void setEvent(Event e) {
     event = e;
+  }
+
+  @action
+  void setPage(int p) {
+    page = p;
   }
 }

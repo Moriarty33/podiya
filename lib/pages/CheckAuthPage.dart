@@ -25,7 +25,7 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
       Firebase.initializeApp().then((value) async {
         User user = FirebaseAuth.instance.currentUser;
         if (user != null) {
-          bool userDataExist = await this.userInfoExist(context);
+          bool userDataExist = await this.userInfoExist();
 
           if (userDataExist) {
             Navigator.pushReplacement(
@@ -53,11 +53,9 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
     return SplashPage();
   }
 
-  userInfoExist(context) async {
-    HomeState homeState = Provider.of<HomeState>(context, listen: false);
+  userInfoExist() async {
     try {
-      UserData userData = await UserDataDao.getData();
-      homeState.setUserData(userData);
+      await UserDataDao.getData();
       return true;
     } catch (e) {
       return false;

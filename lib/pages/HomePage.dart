@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:podiya/dao/EventDao.dart';
-import 'package:podiya/state/homeState.dart';
-import 'package:podiya/widgets/Agents/MainAgentsWidget.dart';
-import 'package:podiya/widgets/Budget/MainBudgetWidget.dart';
-import 'package:podiya/widgets/HomeAppBarWidget.dart';
-import 'package:podiya/widgets/SpinnerWidget.dart';
-import 'package:podiya/widgets/Team/MainTeamWidget.dart';
-import 'package:podiya/widgets/ToDo/MainToDoWidget.dart';
-import 'package:podiya/widgets/favorites/MainFavoritesWidget.dart';
-import 'package:provider/provider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+import 'package:podiya/state/homeState.dart';
+import 'package:podiya/widgets/HomeAppBarWidget.dart';
+import 'package:podiya/widgets/home/HomeWidget.dart';
+import 'package:provider/provider.dart';
+
+import '../theme.dart';
 
 class HomePage extends StatefulWidget {
   final String message;
@@ -36,70 +33,78 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
+  HomeState homeState;
+  Widget _pageWidget;
+  PreferredSizeWidget _appBarWidget;
 
   @override
   Widget build(BuildContext context) {
-    HomeState homeState = Provider.of<HomeState>(context);
+    homeState = Provider.of<HomeState>(context);
+    setPageWidget(homeState.page, context);
+    reaction((_) => homeState.page, (value) => setPageWidget(value, context));
     return Material(
         child: Scaffold(
-            bottomNavigationBar: CurvedNavigationBar(
-              key: _bottomNavigationKey,
-              index: 0,
-              height: 64.0,
-              items: <Widget>[
-                Icon(Icons.home, size: 30),
-                Icon(Icons.list, size: 30),
-                Icon(Icons.perm_identity, size: 30)
-              ],
-              color: Colors.white,
-              buttonBackgroundColor: Colors.white,
-              backgroundColor: Colors.blueAccent,
-              animationCurve: Curves.easeInOut,
-              animationDuration: Duration(milliseconds: 500),
-              onTap: (index) {
-                setState(() {
-                  _page = index;
-                });
-              },
-              letIndexChange: (index) => true,
-            ),
+            bottomNavigationBar: nivigation(),
             backgroundColor: Colors.white,
-            appBar: HomeAppBarWidget(),
-            body: FutureBuilder(
-              future: EventDao.getEvent(homeState.userData.event),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return SpinnerWidget(heightFactor: 1);
-                  default:
-                    if (snapshot.hasError)
-                      return Text('Error: ${snapshot.error}');
-                    else {
-                      homeState.setEvent(snapshot.data);
-                      return loyout(context);
-                    }
-                }
-              },
+            appBar: _appBarWidget,
+            body: AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: _pageWidget,
             )));
   }
 
-  Widget loyout(context) {
-    return Container(
-      margin: EdgeInsets.only(left: 16, right: 16),
-      child: ListView(padding: EdgeInsets.only(top: 32), children: [
-        MainAgentsWidget(),
-        SizedBox(height: 32),
-        MainToDoWidget(),
-        SizedBox(height: 32),
-        MainBudgetWidget(),
-        SizedBox(height: 32),
-        MainFavoritesWidget(),
-        SizedBox(height: 32),
-        MainTeamWidget(),
-        SizedBox(height: 32)
-      ]),
+  Widget nivigation() {
+    return CurvedNavigationBar(
+      key: _bottomNavigationKey,
+      index: 0,
+      height: 64.0,
+      items: <Widget>[
+        Icon(Icons.home, size: 30),
+        Icon(Icons.list, size: 30),
+        Icon(Icons.perm_identity, size: 30)
+      ],
+      color: Colors.white,
+      buttonBackgroundColor: Colors.white,
+      backgroundColor: Colors.blueAccent,
+      animationCurve: Curves.easeInOut,
+      animationDuration: Duration(milliseconds: 500),
+      onTap: (index) {
+        homeState.setPage(index);
+      },
+      letIndexChange: (index) => true,
     );
+  }
+
+  setPageWidget(int page, BuildContext context) {
+    setState(() {
+      if (page == 0) {
+        _appBarWidget = HomeAppBarWidget();
+        _pageWidget = HomeWidget();
+      }
+
+      if (page == 1) {
+        _appBarWidget = HomeAppBarWidget();
+        _pageWidget = Material(
+            child: Container(padding: EdgeInsets.all(65), child: Text("list")));
+      }
+
+      if (page == 2) {
+        _appBarWidget = appbar("Settings");
+        _pageWidget = Material(
+            child: Container(
+                padding: EdgeInsets.all(65), child: Text("settings")));
+      }
+    });
+  }
+
+  PreferredSizeWidget appbar(String title) {
+    return AppBar(
+        backgroundColor: Colors.white70,
+        brightness: Brightness.light,
+        elevation: 1.2,
+        centerTitle: false,
+        title: Text(title, style: EventNameMainPageStyle),
+        toolbarHeight: 64.0);
   }
 }

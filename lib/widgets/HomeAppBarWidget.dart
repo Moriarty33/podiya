@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:podiya/state/homeState.dart';
 import 'package:provider/provider.dart';
 
@@ -27,13 +28,18 @@ class HomeAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         elevation: 1.2,
         actions: [events()],
         centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(homeState.event.name.toString(),
-                style: EventNameMainPageStyle),
-            Text("Залишилось 29 днів", style: EventDateMainPageStyle)
-          ],
+        title: Observer(
+          builder: (_) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                  homeState.event != null
+                      ? homeState.event.name.toString()
+                      : "",
+                  style: EventNameMainPageStyle),
+              Text("Залишилось 29 днів", style: EventDateMainPageStyle)
+            ],
+          ),
         ));
   }
 
