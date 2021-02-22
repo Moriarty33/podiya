@@ -10,7 +10,7 @@ class MainAgentsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 150,
-        margin: EdgeInsets.only(top: 24),
+        margin: EdgeInsets.only(top: 8),
         child: ListView(
             scrollDirection: Axis.horizontal,
             children: List.generate(agents.length, (index) {

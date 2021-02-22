@@ -32,7 +32,7 @@ const TextStyle HeaderStyle = TextStyle(
     fontSize: 22,
     letterSpacing: 0.35);
 const TextStyle AgentTabStyle =
-    TextStyle(color: Colors.grey, fontWeight: FontWeight.w700, fontSize: 13);
+    TextStyle(color: Colors.grey, fontWeight: FontWeight.w700, fontSize: 15);
 const TextStyle AgentTabSelectedStyle =
     TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 18);
 

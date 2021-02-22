@@ -15,4 +15,16 @@ class TypesDao {
               return AgentType.fromJson(data);
             }).toList());
   }
+
+  static Future<List<AgentType>> getAgentTypesByIds(List<String> agentIds) {
+    return firestore
+        .collection(path)
+        .where(FieldPath.documentId, whereIn: agentIds)
+        .get()
+        .then((value) => value.docs.map((element) {
+              Map<String, dynamic> data = element.data();
+              data["id"] = element.id;
+              return AgentType.fromJson(data);
+            }).toList());
+  }
 }

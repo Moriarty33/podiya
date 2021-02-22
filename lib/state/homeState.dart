@@ -20,12 +20,16 @@ abstract class _HomeState with Store {
   @observable
   int page = 0;
 
+  @observable
+  String agentType;
+
   @action
   Future<UserData> init() async {
     UserData u = await UserDataDao.getData();
     Event e = await EventDao.getEvent(u.event);
     setUserData(u);
     setEvent(e);
+    setAgentType(e.types[0]);
 
     return userData;
   }
@@ -38,6 +42,11 @@ abstract class _HomeState with Store {
   @action
   void setEvent(Event e) {
     event = e;
+  }
+
+  @action
+  void setAgentType(String id) {
+    agentType = id;
   }
 
   @action
