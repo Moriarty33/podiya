@@ -18,7 +18,6 @@ class AgentDao {
         .where(FieldPath.fromString("types"), arrayContains: agentType)
         .get()
         .then((value) {
-      print(value.docs.length);
       return value.docs
           .map((element) => Agent.fromJson(element.data()))
           .toList();

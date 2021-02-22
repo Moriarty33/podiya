@@ -24,4 +24,8 @@ class ImagesDao {
 
     return uploadedList;
   }
+
+  static image(String path) {
+    return storage.ref(path).getDownloadURL();
+  }
 }

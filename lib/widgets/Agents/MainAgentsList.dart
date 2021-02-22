@@ -21,7 +21,7 @@ class MainAgentsList extends StatelessWidget {
     return ListView(
         scrollDirection: Axis.horizontal,
         children: List.generate(agents.length, (index) {
-          return AgentCardWidget(name: agents[index].firstname);
+          return AgentCardWidget(agent: agents[index]);
         }));
   }
 }
