@@ -11,4 +11,17 @@ class AgentDao {
     agent.userId = user.uid;
     return firestore.collection(path).add(agent.toJson());
   }
+
+  static getAgents(String agentType) {
+    return firestore
+        .collection(path)
+        .where(FieldPath.fromString("types"), arrayContains: agentType)
+        .get()
+        .then((value) {
+      print(value.docs.length);
+      return value.docs
+          .map((element) => Agent.fromJson(element.data()))
+          .toList();
+    });
+  }
 }

@@ -14,7 +14,7 @@ class MainFavoritesWidget extends StatelessWidget {
             Text("Мої збереження", style: HeaderStyle),
             Text("Показати Більше", style: ShowMoreStyle),
           ]),
-      MainAgentsList(agents: ["Чувак Артист", "Чувак Співак", "Юмаріст"])
+      MainAgentsList(agents: [])
     ]);
   }
 }

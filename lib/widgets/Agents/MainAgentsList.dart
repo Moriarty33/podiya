@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:podiya/model/Agent.dart';
 import 'package:podiya/widgets/Agents/AgentCardWidget.dart';
 
 class MainAgentsList extends StatelessWidget {
-  final List<String> agents;
+  final List<Agent> agents;
 
   MainAgentsList({this.agents});
 
@@ -11,10 +12,16 @@ class MainAgentsList extends StatelessWidget {
     return Container(
         height: 150,
         margin: EdgeInsets.only(top: 8),
-        child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: List.generate(agents.length, (index) {
-              return AgentCardWidget(name: agents[index]);
-            })));
+        child: agents.length > 0
+            ? buildListView()
+            : Center(child: Text("Немає підрядників в даній категорії")));
+  }
+
+  ListView buildListView() {
+    return ListView(
+        scrollDirection: Axis.horizontal,
+        children: List.generate(agents.length, (index) {
+          return AgentCardWidget(name: agents[index].firstname);
+        }));
   }
 }

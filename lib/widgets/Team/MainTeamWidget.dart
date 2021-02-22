@@ -10,7 +10,7 @@ class MainTeamWidget extends StatelessWidget {
       Row(children: [
         Text("Моя Команда", style: HeaderStyle),
       ]),
-      MainAgentsList(agents: ["Йосип співак", "Даха Браха", "Юмаріст"])
+      MainAgentsList(agents: [])
     ]);
   }
 }
