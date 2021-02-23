@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../theme.dart';
+import 'AddToDoListWidget.dart';
 
 class MainToDoWidget extends StatelessWidget {
   @override
@@ -15,7 +17,7 @@ class MainToDoWidget extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              createTodo(),
+              createTodo(context),
               todo(Icons.photo, 15),
               todo(Icons.phone, 25),
               todo(Icons.home, 32)
@@ -24,12 +26,16 @@ class MainToDoWidget extends StatelessWidget {
     ]);
   }
 
-  Widget createTodo() {
+  Widget createTodo(context) {
     return Column(
       children: [
         GestureDetector(
           onTap: () async {
-            print("New TODO");
+            showMaterialModalBottomSheet(
+              context: context,
+              builder: (context) => AddToDoListWidget(),
+              enableDrag: true,
+            );
           },
           child: Container(
             decoration: BoxDecoration(

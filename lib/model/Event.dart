@@ -4,6 +4,7 @@ part 'Event.g.dart';
 
 @JsonSerializable()
 class Event {
+  String id;
   String name;
   DateTime date;
   int city;
