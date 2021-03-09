@@ -8,4 +8,16 @@ class ToDoDao {
   static createList(ToDoList todoList) {
     return firestore.collection(path).add(todoList.toJson());
   }
+
+  static getLists(String eventId) {
+    return firestore
+        .collection(path)
+        .where("eventId", isEqualTo: eventId)
+        .get()
+        .then((value) => value.docs.map((element) {
+              ToDoList toDoList = ToDoList.fromJson(element.data());
+              toDoList.id = element.id;
+              return toDoList;
+            }).toList());
+  }
 }

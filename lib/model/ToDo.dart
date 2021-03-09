@@ -4,9 +4,11 @@ part 'ToDo.g.dart';
 
 @JsonSerializable()
 class ToDo {
+  String id;
+  String listId;
   String name;
   bool done;
-  
+
   ToDo({
     this.name,
     this.done,

@@ -1,14 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
-
 import 'package:podiya/model/ToDo.dart';
 
 part 'ToDoList.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ToDoList {
+  String id;
   String eventId;
   String name;
-  int icon;
+  String icon;
   List<ToDo> todos;
 
   ToDoList({

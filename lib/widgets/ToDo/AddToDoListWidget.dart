@@ -8,17 +8,21 @@ import 'package:provider/provider.dart';
 import '../../theme.dart';
 
 class AddToDoListWidget extends StatefulWidget {
+  final Function() cb;
+
+  const AddToDoListWidget({Key key, this.cb}) : super(key: key);
+
   @override
   _AddToDoListWidgetState createState() => _AddToDoListWidgetState();
 }
 
 class _AddToDoListWidgetState extends State<AddToDoListWidget> {
   final _formKey = GlobalKey<FormState>();
-
   final field = TextEditingController();
 
   IconData _icon = Icons.home;
   HomeState homeState;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +76,7 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
                 color: Colors.black,
                 padding:
                     EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
-                onPressed: _create,
+                onPressed: loading == true ? null : () => _create(context),
                 child: Text(
                   "Створити",
                   style: TextStyle(color: Colors.white, fontSize: 15),
@@ -92,12 +96,19 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
     });
   }
 
-  _create() {
-    ToDoDao.createList(ToDoList(
+  _create(BuildContext context) async {
+    setState(() {
+      loading = true;
+    });
+    await ToDoDao.createList(ToDoList(
         eventId: homeState.event.id,
-        icon: _icon.codePoint,
+        icon: _icon.codePoint.toString(),
         name: field.value.text,
-        todos: []
-      ));
+        todos: []));
+    widget.cb();
+    Navigator.pop(context);
+    setState(() {
+      loading = false;
+    });
   }
 }
