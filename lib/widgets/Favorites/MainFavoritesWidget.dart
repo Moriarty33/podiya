@@ -10,6 +10,7 @@ class MainFavoritesWidget extends StatelessWidget {
       Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
           children: [
             Text("Мої збереження", style: HeaderStyle),
             Text("Показати Більше", style: ShowMoreStyle),

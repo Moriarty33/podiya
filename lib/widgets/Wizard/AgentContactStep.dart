@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+// import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:podiya/model/AgentLinks.dart';
 import 'package:podiya/state/wizardState.dart';
 import 'package:provider/provider.dart';
@@ -107,23 +107,25 @@ class AgentContactStep extends StatelessWidget {
   String initialCountry = 'UA';
 
   Widget phoneNumber(String phoneNumber) {
-    PhoneNumber number =
-        PhoneNumber(isoCode: initialCountry, phoneNumber: phoneNumber);
-    return InternationalPhoneNumberInput(
-        onSaved: (PhoneNumber number) {
-          wizardState.setAgentPhoneNumber(number.phoneNumber);
-        },
-        hintText: "93 777 7777",
-        cursorColor: Colors.black,
-        selectorConfig: SelectorConfig(showFlags: false),
-        ignoreBlank: false,
-        autoValidateMode: AutovalidateMode.onUserInteraction,
-        errorMessage: "Номер телефону має не вірний формат",
-        selectorTextStyle: TextStyle(color: Colors.black),
-        initialValue: number,
-        textFieldController: phoneNumberController,
-        formatInput: true,
-        countries: ["UA"],
-        keyboardType: TextInputType.numberWithOptions(decimal: true));
+    return Container();
   }
+  //   PhoneNumber number =
+  //       PhoneNumber(isoCode: initialCountry, phoneNumber: phoneNumber);
+  //   return InternationalPhoneNumberInput(
+  //       onSaved: (PhoneNumber number) {
+  //         wizardState.setAgentPhoneNumber(number.phoneNumber);
+  //       },
+  //       hintText: "93 777 7777",
+  //       cursorColor: Colors.black,
+  //       selectorConfig: SelectorConfig(showFlags: false),
+  //       ignoreBlank: false,
+  //       autoValidateMode: AutovalidateMode.onUserInteraction,
+  //       errorMessage: "Номер телефону має не вірний формат",
+  //       selectorTextStyle: TextStyle(color: Colors.black),
+  //       initialValue: number,
+  //       textFieldController: phoneNumberController,
+  //       formatInput: true,
+  //       countries: ["UA"],
+  //       keyboardType: TextInputType.numberWithOptions(decimal: true));
+  // }
 }

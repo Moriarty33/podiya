@@ -19,6 +19,7 @@ class MainAgentsWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
           children: [
             Text("Підрядники", style: HeaderStyle),
             Text("Показати Більше", style: ShowMoreStyle),

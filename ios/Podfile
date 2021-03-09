@@ -35,7 +35,19 @@ target 'Runner' do
 end
 
 post_install do |installer|
+  # ... originally only the following 3 lines ...
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+  end
+
+  # **NOW ADD THESE LINES**
+  installer.pods_project.targets.each do |target|
+    # print "target=", target, "\n"
+    if target.name == "BSImagePicker" or target.name == "multi_image_picker"
+      target.build_configurations.each do |config|
+        # print "config=", config, " config.build_settings=", config.build_settings, "\n"
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+      end
+    end
   end
 end
