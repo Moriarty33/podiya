@@ -48,6 +48,9 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
         GestureDetector(
           onTap: () async {
             showMaterialModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 context: context,
                 builder: (context) => AddToDoListWidget(cb: () {
                       setState(() {});
@@ -79,6 +82,9 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
           GestureDetector(
             onTap: () async {
               showMaterialModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   context: context,
                   builder: (context) => ShowToDoListWidget(
                       cb: () {

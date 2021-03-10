@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:podiya/model/ToDo.dart';
 import 'package:podiya/model/ToDoList.dart';
 
 class ToDoDao {
@@ -19,5 +20,12 @@ class ToDoDao {
               toDoList.id = element.id;
               return toDoList;
             }).toList());
+  }
+
+  static saveTodos(String todoListId, List<ToDo> todos) {
+    return firestore
+        .collection(path)
+        .doc(todoListId)
+        .update({"todos": todos?.map((e) => e?.toJson())?.toList()});
   }
 }

@@ -30,6 +30,9 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
     return Container(
       height: 600,
       padding: EdgeInsets.only(top: 24, left: 16, right: 16),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50), topRight: Radius.circular(50))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -97,18 +100,20 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
   }
 
   _create(BuildContext context) async {
-    setState(() {
-      loading = true;
-    });
-    await ToDoDao.createList(ToDoList(
-        eventId: homeState.event.id,
-        icon: _icon.codePoint.toString(),
-        name: field.value.text,
-        todos: []));
-    widget.cb();
-    Navigator.pop(context);
-    setState(() {
-      loading = false;
-    });
+    if (_formKey.currentState.validate()) {
+      setState(() {
+        loading = true;
+      });
+      await ToDoDao.createList(ToDoList(
+          eventId: homeState.event.id,
+          icon: _icon.codePoint.toString(),
+          name: field.value.text,
+          todos: []));
+      widget.cb();
+      Navigator.pop(context);
+      setState(() {
+        loading = false;
+      });
+    }
   }
 }
