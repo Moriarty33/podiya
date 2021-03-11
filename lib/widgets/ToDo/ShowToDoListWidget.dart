@@ -14,7 +14,7 @@ class ShowToDoListWidget extends StatefulWidget {
   final Function() cb;
   final ToDoList toDoList;
 
-  const ShowToDoListWidget({Key key, this.cb, this.toDoList}) : super(key: key);
+  ShowToDoListWidget({Key key, this.cb, this.toDoList}) : super(key: key);
 
   @override
   _ShowToDoListWidgetState createState() => _ShowToDoListWidgetState();
@@ -30,7 +30,8 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
     homeState = Provider.of<HomeState>(context);
     return WillPopScope(
       onWillPop: () async {
-        ToDoDao.saveTodos(widget.toDoList.id, todos);
+        await ToDoDao.saveTodos(widget.toDoList.id, todos);
+        widget.cb();
         return true;
       },
       child: Container(
@@ -79,15 +80,46 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
       padding: EdgeInsets.only(top: 8),
       children: todos
           .map(
-            (ToDo item) => CheckboxListTile(
-              title: Text(item.name),
-              value: item.done,
-              onChanged: (bool val) {
-                setState(() => item.done = val);
+            (ToDo item) => GestureDetector(
+              onLongPress: () {
+                deleteConfirmation(context, item);
               },
+              child: CheckboxListTile(
+                title: Text(item.name),
+                value: item.done,
+                onChanged: (bool val) {
+                  setState(() => item.done = val);
+                },
+              ),
             ),
           )
           .toList(),
     );
+  }
+
+  deleteConfirmation(BuildContext context, ToDo todo) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Підтвердження"),
+              content: Text("Ви впевнені що точно хочете видалити цю справу?"),
+              actions: [
+                TextButton(
+                  child: Text("Скасувати"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text("Видалити"),
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    setState(() {
+                      todos.remove(todo);
+                    });
+                  },
+                )
+              ],
+            ));
   }
 }

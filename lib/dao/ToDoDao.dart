@@ -22,6 +22,10 @@ class ToDoDao {
             }).toList());
   }
 
+  static deleteList(String todoListId) {
+    return firestore.collection(path).doc(todoListId).delete();
+  }
+
   static saveTodos(String todoListId, List<ToDo> todos) {
     return firestore
         .collection(path)

@@ -87,11 +87,14 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
                   ),
                   context: context,
                   builder: (context) => ShowToDoListWidget(
+                      toDoList: toDoList,
                       cb: () {
                         setState(() {});
-                      },
-                      toDoList: toDoList),
+                      }),
                   enableDrag: true);
+            },
+            onLongPress: () {
+              deleteToDoConfirmation(context, toDoList);
             },
             child: Container(
               margin: EdgeInsets.only(bottom: 4),
@@ -110,11 +113,48 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
             ),
           ),
           Text(
-            "20" + "%",
+            calculatePercents(toDoList).toString() + "%",
             style: TextStyle(color: Colors.black54, fontSize: 10),
           )
         ],
       ),
     );
+  }
+
+  int calculatePercents(ToDoList toDoList) {
+    int all = toDoList.todos.length;
+    int done = toDoList.todos.where((element) => element.done == true).length;
+
+    if (done == 0 || all == 0) {
+      return 0;
+    }
+
+    return (done / all * 100).round();
+  }
+
+  deleteToDoConfirmation(BuildContext context, ToDoList toDoList) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Підтвердження"),
+              content:
+                  Text("Ви впевнені що точно хочете видалити список справ?"),
+              actions: [
+                TextButton(
+                  child: Text("Скасувати"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text("Видалити"),
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    await ToDoDao.deleteList(toDoList.id);
+                    setState(() {});
+                  },
+                )
+              ],
+            ));
   }
 }
