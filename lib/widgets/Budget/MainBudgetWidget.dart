@@ -63,7 +63,7 @@ class _MainBudgetWidgetState extends State<MainBudgetWidget> {
             builder: (context) =>
                 ShowDepositWidget(eventId: homeState.event.id),
             enableDrag: true)
-        .whenComplete(() {
+        .then((value) {
       setState(() {});
     });
   }

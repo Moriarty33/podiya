@@ -40,7 +40,7 @@ class _ShowDepositWidgetState extends State<ShowDepositWidget> {
                             builder: (context) =>
                                 AddDepositWidget(eventId: widget.eventId),
                             enableDrag: true)
-                        .whenComplete(() {
+                        .then((value) {
                       setState(() {});
                     });
                   },
@@ -59,6 +59,12 @@ class _ShowDepositWidgetState extends State<ShowDepositWidget> {
         future: DepositDao.getDeposits(widget.eventId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data.length == 0) {
+              return Center(
+                child: Text("Поки що у вас немає Завдатків"),
+              );
+            }
+
             return ListView(
                 padding: EdgeInsets.all(0),
                 children: snapshot.data
