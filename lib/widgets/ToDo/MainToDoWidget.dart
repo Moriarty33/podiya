@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:podiya/dao/ToDoDao.dart';
+import 'package:podiya/model/ToDo.dart';
 import 'package:podiya/model/ToDoList.dart';
 import 'package:podiya/state/homeState.dart';
 import 'package:provider/provider.dart';
@@ -15,9 +16,10 @@ class MainToDoWidget extends StatefulWidget {
 }
 
 class _MainToDoWidgetState extends State<MainToDoWidget> {
+  HomeState homeState;
   @override
   Widget build(BuildContext context) {
-    HomeState homeState = Provider.of<HomeState>(context);
+    homeState = Provider.of<HomeState>(context);
     return Column(children: [
       Row(children: [
         Text("Список Справ", style: HeaderStyle),
@@ -25,7 +27,7 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
       Container(
           height: 72,
           margin: EdgeInsets.only(top: 16),
-          child: FutureBuilder(
+          child: FutureBuilder<List<ToDoList>>(
               future: ToDoDao.getLists(homeState.event.id),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -82,16 +84,16 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
           GestureDetector(
             onTap: () async {
               showMaterialModalBottomSheet(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  context: context,
-                  builder: (context) => ShowToDoListWidget(
-                      toDoList: toDoList,
-                      cb: () {
-                        setState(() {});
-                      }),
-                  enableDrag: true);
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      context: context,
+                      builder: (context) =>
+                          ShowToDoListWidget(toDoList: toDoList),
+                      enableDrag: true)
+                  .then((value) {
+                setState(() {});
+              });
             },
             onLongPress: () {
               deleteToDoConfirmation(context, toDoList);
@@ -112,24 +114,37 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
                       color: Colors.white70)),
             ),
           ),
-          Text(
-            calculatePercents(toDoList).toString() + "%",
-            style: TextStyle(color: Colors.black54, fontSize: 10),
-          )
+          calculatePercents(toDoList)
         ],
       ),
     );
   }
 
-  int calculatePercents(ToDoList toDoList) {
-    int all = toDoList.todos.length;
-    int done = toDoList.todos.where((element) => element.done == true).length;
+  Widget calculatePercents(ToDoList toDoList) {
+    return Container(
+      child: FutureBuilder<List<ToDo>>(
+          future: ToDoDao.getTodos(homeState.event.id, toDoList.id),
+          builder: (context, snapshot) {
+            int value = 0;
+            if (snapshot.connectionState == ConnectionState.done) {
+              List<ToDo> todos = snapshot.data;
+              if (todos == null) {
+                value = 0;
+              }
+              int all = todos.length;
+              int done = todos.where((element) => element.done == true).length;
 
-    if (done == 0 || all == 0) {
-      return 0;
-    }
+              if (done == 0 || all == 0) {
+                value = 0;
+              } else {
+                value = (done / all * 100).round();
+              }
+            }
 
-    return (done / all * 100).round();
+            return Text(value.toString() + "%",
+                style: TextStyle(color: Colors.black54, fontSize: 10));
+          }),
+    );
   }
 
   deleteToDoConfirmation(BuildContext context, ToDoList toDoList) {
@@ -150,7 +165,7 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
                   child: Text("Видалити"),
                   onPressed: () async {
                     Navigator.of(context).pop();
-                    await ToDoDao.deleteList(toDoList.id);
+                    await ToDoDao.deleteList(homeState.event.id, toDoList.id);
                     setState(() {});
                   },
                 )

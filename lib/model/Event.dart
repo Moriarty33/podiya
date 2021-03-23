@@ -1,15 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:podiya/model/ToDoList.dart';
 
 part 'Event.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Event {
   String id;
   String name;
   DateTime date;
   int city;
   List<String> types;
-  
+  List<ToDoList> toDoList;
+
   String userId;
 
   Event({

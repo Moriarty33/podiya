@@ -11,10 +11,9 @@ import 'package:provider/provider.dart';
 import '../../theme.dart';
 
 class ShowToDoListWidget extends StatefulWidget {
-  final Function() cb;
   final ToDoList toDoList;
 
-  ShowToDoListWidget({Key key, this.cb, this.toDoList}) : super(key: key);
+  ShowToDoListWidget({Key key, this.toDoList}) : super(key: key);
 
   @override
   _ShowToDoListWidgetState createState() => _ShowToDoListWidgetState();
@@ -22,78 +21,86 @@ class ShowToDoListWidget extends StatefulWidget {
 
 class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
   HomeState homeState;
-  List<ToDo> todos;
 
   @override
   Widget build(BuildContext context) {
-    todos = widget.toDoList.todos;
     homeState = Provider.of<HomeState>(context);
-    return WillPopScope(
-      onWillPop: () async {
-        await ToDoDao.saveTodos(widget.toDoList.id, todos);
-        widget.cb();
-        return true;
-      },
-      child: Container(
-        height: 600,
-        padding: EdgeInsets.only(top: 24, left: 16, right: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(widget.toDoList.name, style: HeaderStyle),
-                IconButton(
-                    icon: Icon(Icons.add_circle, size: 36),
-                    onPressed: () {
-                      showMaterialModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          context: context,
-                          builder: (context) => AddToDoWidget(cb: (ToDo todo) {
-                                setState(() {
-                                  todos.add(todo);
-                                });
-                              }),
-                          enableDrag: true);
-                    })
-              ],
-            ),
-            SizedBox(height: 24),
-            Container(height: 300, child: toDoList(todos))
-          ],
-        ),
+    return Container(
+      height: 600,
+      padding: EdgeInsets.only(top: 24, left: 16, right: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.toDoList.name, style: HeaderStyle),
+              IconButton(
+                  icon: Icon(Icons.add_circle, size: 36),
+                  onPressed: () {
+                    showMaterialModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            context: context,
+                            builder: (context) => AddToDoWidget(
+                                eventId: homeState.event.id,
+                                todoListId: widget.toDoList.id),
+                            enableDrag: true)
+                        .then((value) {
+                      setState(() {});
+                    });
+                  })
+            ],
+          ),
+          SizedBox(height: 24),
+          Container(height: 300, child: toDoList())
+        ],
       ),
     );
   }
 
-  Widget toDoList(List<ToDo> todos) {
-    if (todos.length == 0) {
-      return Center(
-        child: Text("Поки що у вас немає Справ"),
-      );
-    }
-    return ListView(
-      padding: EdgeInsets.only(top: 8),
-      children: todos
-          .map(
-            (ToDo item) => GestureDetector(
-              onLongPress: () {
-                deleteConfirmation(context, item);
-              },
-              child: CheckboxListTile(
-                title: Text(item.name),
-                value: item.done,
-                onChanged: (bool val) {
-                  setState(() => item.done = val);
-                },
-              ),
-            ),
-          )
-          .toList(),
+  Widget toDoList() {
+    return FutureBuilder<List<ToDo>>(
+        future: ToDoDao.getTodos(homeState.event.id, widget.toDoList.id),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data.length == 0) {
+              return Center(
+                child: Text("Поки що у вас немає Справ"),
+              );
+            }
+
+            return ListView(
+              padding: EdgeInsets.only(top: 8),
+              children: snapshot.data
+                  .map(
+                    (ToDo item) => todoItem(item),
+                  )
+                  .toList(),
+            );
+          } else {
+            return Container();
+          }
+        });
+  }
+
+  Widget todoItem(ToDo item) {
+    return GestureDetector(
+      onLongPress: () {
+        deleteConfirmation(context, item);
+      },
+      child: CheckboxListTile(
+        title: Text(item.name),
+        value: item.done,
+        onChanged: (bool val) {
+          ToDoDao.todoDone(homeState.event.id, widget.toDoList.id, item.id, val)
+              .then((value) {
+            setState(() {});
+          });
+        },
+      ),
     );
   }
 
@@ -113,10 +120,10 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
                 TextButton(
                   child: Text("Видалити"),
                   onPressed: () async {
+                    ToDoDao.deleteTodo(
+                        homeState.event.id, widget.toDoList.id, todo.id);
+                    setState(() {});
                     Navigator.of(context).pop();
-                    setState(() {
-                      todos.remove(todo);
-                    });
                   },
                 )
               ],

@@ -104,11 +104,8 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
       setState(() {
         loading = true;
       });
-      await ToDoDao.createList(ToDoList(
-          eventId: homeState.event.id,
-          icon: _icon.codePoint.toString(),
-          name: field.value.text,
-          todos: []));
+      await ToDoDao.createList(homeState.event.id,
+          ToDoList(icon: _icon.codePoint.toString(), name: field.value.text));
       widget.cb();
       Navigator.pop(context);
       setState(() {

@@ -4,10 +4,12 @@ part 'ToDo.g.dart';
 
 @JsonSerializable()
 class ToDo {
+  String id;
   String name;
   bool done;
 
   ToDo({
+    this.id,
     this.name,
     this.done,
   });

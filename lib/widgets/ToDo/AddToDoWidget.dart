@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:podiya/dao/ToDoDao.dart';
 import 'package:podiya/model/ToDo.dart';
 
 import '../../theme.dart';
 
 class AddToDoWidget extends StatefulWidget {
-  final Function(ToDo) cb;
+  String todoListId;
+  String eventId;
 
-  const AddToDoWidget({Key key, this.cb}) : super(key: key);
+  AddToDoWidget({this.todoListId, this.eventId});
 
   @override
   _AddToDoWidgetState createState() => _AddToDoWidgetState();
@@ -66,7 +68,8 @@ class _AddToDoWidgetState extends State<AddToDoWidget> {
 
   void _add(BuildContext context) {
     if (_formKey.currentState.validate()) {
-      widget.cb(ToDo(name: field.value.text.trim(), done: false));
+      ToDoDao.addTodo(widget.eventId, widget.todoListId,
+          ToDo(name: field.value.text.trim(), done: false));
       Navigator.pop(context);
     }
   }
