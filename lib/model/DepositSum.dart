@@ -8,8 +8,8 @@ class DepositSum {
       _$DepositSumFromJson(json);
   Map<String, dynamic> toJson(instance) => _$DepositSumToJson(this);
 
-  int UAH;
-  int USD;
+  int uah;
+  int usd;
 
-  DepositSum({this.UAH, this.USD});
+  DepositSum({this.uah, this.usd});
 }

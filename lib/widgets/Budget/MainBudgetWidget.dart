@@ -7,8 +7,14 @@ import 'package:provider/provider.dart';
 import '../../theme.dart';
 import 'ShowDepositWidget.dart';
 
-class MainBudgetWidget extends StatelessWidget {
+class MainBudgetWidget extends StatefulWidget {
+  @override
+  _MainBudgetWidgetState createState() => _MainBudgetWidgetState();
+}
+
+class _MainBudgetWidgetState extends State<MainBudgetWidget> {
   HomeState homeState;
+
   @override
   Widget build(BuildContext context) {
     homeState = Provider.of<HomeState>(context);
@@ -28,16 +34,21 @@ class MainBudgetWidget extends StatelessWidget {
                 child: budgetItem(
                     "Завдатки",
                     "Вводь сюди усі завдатки, які передаватимеш підрядникам, щоб нічого не забути !",
-                    snapshot.data.USD.toString() +
+                    snapshot.data.usd.toString() +
                         "\$ / " +
-                        snapshot.data.UAH.toString() +
+                        snapshot.data.uah.toString() +
                         "₴"),
               );
             } else {
-              return budgetItem(
-                  "Завдатки",
-                  "Вводь сюди усі завдатки, які передаватимеш підрядникам, щоб нічого не забути !",
-                  "-");
+              return GestureDetector(
+                onTap: () {
+                  this.openDeposit(context);
+                },
+                child: budgetItem(
+                    "Завдатки",
+                    "Вводь сюди усі завдатки, які передаватимеш підрядникам, щоб нічого не забути !",
+                    "-"),
+              );
             }
           })
     ]);
@@ -45,12 +56,16 @@ class MainBudgetWidget extends StatelessWidget {
 
   openDeposit(BuildContext context) {
     showMaterialModalBottomSheet(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        context: context,
-        builder: (context) => ShowDepositWidget(eventId: homeState.event.id),
-        enableDrag: true);
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            context: context,
+            builder: (context) =>
+                ShowDepositWidget(eventId: homeState.event.id),
+            enableDrag: true)
+        .whenComplete(() {
+      setState(() {});
+    });
   }
 
   Widget budgetItem(name, description, sum) {
