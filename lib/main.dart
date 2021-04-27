@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:podiya/state/homeState.dart';
 import 'package:podiya/state/wizardState.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'pages/CheckAuthPage.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
