@@ -32,6 +32,19 @@ class _AgentPageState extends State<AgentPage> {
               fit: BoxFit.cover,
             ),
           ),
+          Positioned(
+            top: 48,
+            left: 24,
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(Icons.arrow_back_ios, color: Colors.white)),
+          ),
+          Positioned(
+              top: 48,
+              right: 24,
+              child: Icon(Icons.bookmark_border, color: Colors.white)),
           FutureBuilder(
             future: AgentDao.getAgent(widget.id),
             builder: (context, snapshot) {
@@ -54,8 +67,7 @@ class _AgentPageState extends State<AgentPage> {
                       );
                     });
               } else {
-                return Container(
-                    height: 158, child: SpinnerWidget(heightFactor: 1));
+                return Container(child: SpinnerWidget(heightFactor: 2));
               }
             },
           )

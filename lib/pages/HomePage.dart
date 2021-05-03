@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     if (widget.message != null) {
       Future(() {
         final snackBar = SnackBar(content: Text(widget.message));
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
     }
   }
