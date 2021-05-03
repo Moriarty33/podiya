@@ -31,6 +31,16 @@ const TextStyle HeaderStyle = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 22,
     letterSpacing: 0.35);
+const TextStyle MoneyStyle = TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+    fontSize: 22,
+    letterSpacing: 0.31);
+const TextStyle AgentDescription = TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    letterSpacing: 0.31);
 const TextStyle AgentTabStyle =
     TextStyle(color: Colors.grey, fontWeight: FontWeight.w700, fontSize: 15);
 const TextStyle AgentTabSelectedStyle =

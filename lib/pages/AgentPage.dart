@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:podiya/dao/AgentDao.dart';
+import 'package:podiya/model/Agent.dart';
 import 'package:podiya/state/homeState.dart';
+import 'package:podiya/widgets/Agents/AgentInfo.dart';
+import 'package:podiya/widgets/SpinnerWidget.dart';
 import 'package:provider/provider.dart';
-
-import '../theme.dart';
 
 class AgentPage extends StatefulWidget {
   String id;
@@ -30,32 +32,35 @@ class _AgentPageState extends State<AgentPage> {
               fit: BoxFit.cover,
             ),
           ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.7,
-              maxChildSize: 0.95,
-              minChildSize: 0.55,
-              expand: true,
-              builder: (context, scrollController) {
+          FutureBuilder(
+            future: AgentDao.getAgent(widget.id),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                Agent agent = snapshot.data;
+                return DraggableScrollableSheet(
+                    initialChildSize: 0.55,
+                    maxChildSize: 0.95,
+                    minChildSize: 0.55,
+                    builder: (context, scrollController) {
+                      return Container(
+                        padding: EdgeInsets.only(top: 18, left: 24),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25))),
+                        child: SingleChildScrollView(
+                            controller: scrollController,
+                            child: AgentInfo(agent: agent)),
+                      );
+                    });
+              } else {
                 return Container(
-                  padding: EdgeInsets.only(top: 18, left: 24),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(25))),
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(widget.id, style: HeaderStyle, textAlign: TextAlign.start,)
-                      ],
-                    ),
-                  ),
-                );
-              })
+                    height: 158, child: SpinnerWidget(heightFactor: 1));
+              }
+            },
+          )
         ],
       ),
-    )
-    ;
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:podiya/data/cities.dart';
 import 'AgentLinks.dart';
 
 part 'Agent.g.dart';
@@ -37,4 +37,12 @@ class Agent {
 
   factory Agent.fromJson(Map<String, dynamic> json) => _$AgentFromJson(json);
   Map<String, dynamic> toJson() => _$AgentToJson(this);
+
+  formatMoney() {
+    return this.amount.toString() + " ₴";
+  }
+
+  formatCities() {
+    return this.cities.map((e) => findCityById(e)["name"]);
+  }
 }

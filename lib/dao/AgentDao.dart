@@ -27,4 +27,14 @@ class AgentDao {
           .toList();
     });
   }
+
+  static getAgent(String id) {
+    return firestore
+        .collection(path)
+        .doc(id)
+        .get()
+        .then((value) {
+          return Agent.fromJson(value.data());
+    });
+  }
 }
