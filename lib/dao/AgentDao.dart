@@ -19,7 +19,11 @@ class AgentDao {
         .get()
         .then((value) {
       return value.docs
-          .map((element) => Agent.fromJson(element.data()))
+          .map((element){
+           Agent agent =  Agent.fromJson(element.data());
+           agent.id = element.id;
+           return agent;
+          })
           .toList();
     });
   }

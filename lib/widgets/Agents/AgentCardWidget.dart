@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:podiya/dao/ImagesDao.dart';
 import 'package:podiya/model/Agent.dart';
+import 'package:podiya/pages/AgentPage.dart';
 
 class AgentCardWidget extends StatefulWidget {
   final Agent agent;
@@ -24,19 +25,27 @@ class _AgentCardWidgetState extends State<AgentCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 108,
-      margin: EdgeInsets.only(right: 10),
-      decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(16.0),
-          image: _imageUrl != null
-              ? DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(_imageUrl))
-              : null),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AgentPage(id: widget.agent.id, imageUrl: _imageUrl)),
+        );
+      },
       child: Container(
-          alignment: Alignment.bottomLeft,
-          padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
-          child: Text(widget.agent.firstname)),
+        width: 108,
+        margin: EdgeInsets.only(right: 10),
+        decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(16.0),
+            image: _imageUrl != null
+                ? DecorationImage(
+                    fit: BoxFit.cover, image: NetworkImage(_imageUrl))
+                : null),
+        child: Container(
+            alignment: Alignment.bottomLeft,
+            padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+            child: Text(widget.agent.firstname)),
+      ),
     );
   }
 }

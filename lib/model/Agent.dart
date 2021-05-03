@@ -6,6 +6,7 @@ part 'Agent.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Agent {
+  String id;
   String firstname;
   String lastname;
   String description;
