@@ -19,7 +19,6 @@ class AgentPage extends StatefulWidget {
 class _AgentPageState extends State<AgentPage> {
   @override
   Widget build(BuildContext context) {
-    HomeState homeState = Provider.of<HomeState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

@@ -34,7 +34,9 @@ class AgentDao {
         .doc(id)
         .get()
         .then((value) {
-          return Agent.fromJson(value.data()!);
+          Agent agent = Agent.fromJson(value.data()!);
+          agent.id = id;
+          return agent;
     });
   }
 }

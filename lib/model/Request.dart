@@ -10,7 +10,7 @@ class Request {
   Map<String, dynamic> toJson() => _$RequestToJson(this);
 
   String fromUserId;
-  String toUserId;
+  String toAgentId;
   String eventId;
 
   // FieldValue createdAt = FieldValue.serverTimestamp();
@@ -18,7 +18,7 @@ class Request {
 
   Request(
       {required this.fromUserId,
-      required this.toUserId,
+      required this.toAgentId,
       required this.eventId,
       required this.comment});
 }
