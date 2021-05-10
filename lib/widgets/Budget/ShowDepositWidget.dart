@@ -9,7 +9,8 @@ import '../../theme.dart';
 class ShowDepositWidget extends StatefulWidget {
   final String eventId;
 
-  const ShowDepositWidget({Key key, this.eventId}) : super(key: key);
+  const ShowDepositWidget({Key? key, required this.eventId})
+      : super(key: key);
 
   @override
   _ShowDepositWidgetState createState() => _ShowDepositWidgetState();
@@ -59,7 +60,7 @@ class _ShowDepositWidgetState extends State<ShowDepositWidget> {
         future: DepositDao.getDeposits(widget.eventId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.data.length == 0) {
+            if (snapshot.data!.length == 0) {
               return Center(
                 child: Text("Поки що у вас немає Завдатків"),
               );
@@ -67,7 +68,7 @@ class _ShowDepositWidgetState extends State<ShowDepositWidget> {
 
             return ListView(
                 padding: EdgeInsets.all(0),
-                children: snapshot.data
+                children: snapshot.data!
                     .map((data) => deposit(context, data))
                     .toList());
           } else {

@@ -8,7 +8,7 @@ class AddToDoWidget extends StatefulWidget {
   String todoListId;
   String eventId;
 
-  AddToDoWidget({this.todoListId, this.eventId});
+  AddToDoWidget({required this.todoListId, required this.eventId});
 
   @override
   _AddToDoWidgetState createState() => _AddToDoWidgetState();
@@ -44,7 +44,7 @@ class _AddToDoWidgetState extends State<AddToDoWidget> {
               decoration: InputDecoration(hintText: 'Назва Справи'),
               controller: field,
               validator: (value) {
-                if (value.trim().isEmpty) {
+                if (value!.trim().isEmpty) {
                   return 'Будь ласка введіть назву';
                 }
                 return null;
@@ -67,7 +67,7 @@ class _AddToDoWidgetState extends State<AddToDoWidget> {
   }
 
   void _add(BuildContext context) {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       ToDoDao.addTodo(widget.eventId, widget.todoListId,
           ToDo(name: field.value.text.trim(), done: false));
       Navigator.pop(context);

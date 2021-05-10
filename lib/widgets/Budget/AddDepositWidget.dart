@@ -10,7 +10,7 @@ import '../../theme.dart';
 class AddDepositWidget extends StatefulWidget {
   final String eventId;
 
-  AddDepositWidget({this.eventId});
+  AddDepositWidget({required this.eventId});
 
   @override
   _AddDepositWidget createState() => _AddDepositWidget();
@@ -118,7 +118,7 @@ class _AddDepositWidget extends State<AddDepositWidget> {
               controller: sumField,
               keyboardType: TextInputType.number,
               validator: (value) {
-                if (value.trim().isEmpty) {
+                if (value!.trim().isEmpty) {
                   return 'Будь ласка введіть опис';
                 }
                 return null;
@@ -141,7 +141,7 @@ class _AddDepositWidget extends State<AddDepositWidget> {
   }
 
   void _add(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       await DepositDao.saveDeposit(Deposit(
           amount: int.parse(sumField.value.text),
           category: category.meta,

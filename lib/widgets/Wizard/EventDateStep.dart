@@ -7,7 +7,7 @@ import 'StepButton.dart';
 import 'StepInfo.dart';
 
 class EventDateStep extends StatelessWidget {
-  DateTime dateTime;
+  late DateTime dateTime;
 
   @override
   Widget build(BuildContext context) {

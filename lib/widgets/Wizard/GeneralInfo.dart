@@ -10,7 +10,7 @@ class GeneralInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WizardState wizardState = Provider.of<WizardState>(context);
-    String name = FirebaseAuth.instance.currentUser.displayName;
+    String name = FirebaseAuth.instance.currentUser!.displayName!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,

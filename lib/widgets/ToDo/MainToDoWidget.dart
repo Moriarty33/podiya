@@ -16,7 +16,7 @@ class MainToDoWidget extends StatefulWidget {
 }
 
 class _MainToDoWidgetState extends State<MainToDoWidget> {
-  HomeState homeState;
+  late HomeState homeState;
   @override
   Widget build(BuildContext context) {
     homeState = Provider.of<HomeState>(context);
@@ -28,11 +28,11 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
           height: 72,
           margin: EdgeInsets.only(top: 16),
           child: FutureBuilder<List<ToDoList>>(
-              future: ToDoDao.getLists(homeState.event.id),
+              future: ToDoDao.getLists(homeState.event!.id!),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   List<Widget> widgets = [createTodo(context)];
-                  snapshot.data.forEach(
+                  snapshot.data!.forEach(
                       (ToDoList todoList) => widgets.add(todo(todoList)));
 
                   return ListView(
@@ -123,11 +123,11 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
   Widget calculatePercents(ToDoList toDoList) {
     return Container(
       child: FutureBuilder<List<ToDo>>(
-          future: ToDoDao.getTodos(homeState.event.id, toDoList.id),
+          future: ToDoDao.getTodos(homeState.event!.id!, toDoList.id),
           builder: (context, snapshot) {
             int value = 0;
             if (snapshot.connectionState == ConnectionState.done) {
-              List<ToDo> todos = snapshot.data;
+              List<ToDo> todos = snapshot.data!;
               if (todos == null) {
                 value = 0;
               }
@@ -165,7 +165,7 @@ class _MainToDoWidgetState extends State<MainToDoWidget> {
                   child: Text("Видалити"),
                   onPressed: () async {
                     Navigator.of(context).pop();
-                    await ToDoDao.deleteList(homeState.event.id, toDoList.id);
+                    await ToDoDao.deleteList(homeState.event!.id!, toDoList.id);
                     setState(() {});
                   },
                 )

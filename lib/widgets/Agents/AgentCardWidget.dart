@@ -6,14 +6,14 @@ import 'package:podiya/pages/AgentPage.dart';
 class AgentCardWidget extends StatefulWidget {
   final Agent agent;
 
-  AgentCardWidget({this.agent});
+  AgentCardWidget({required this.agent});
 
   @override
   _AgentCardWidgetState createState() => _AgentCardWidgetState();
 }
 
 class _AgentCardWidgetState extends State<AgentCardWidget> {
-  String _imageUrl;
+  String? _imageUrl;
 
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _AgentCardWidgetState extends State<AgentCardWidget> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AgentPage(id: widget.agent.id, imageUrl: _imageUrl)),
+          MaterialPageRoute(builder: (context) => AgentPage(id: widget.agent.id, imageUrl: _imageUrl ?? "")),
         );
       },
       child: Container(
@@ -39,7 +39,7 @@ class _AgentCardWidgetState extends State<AgentCardWidget> {
             borderRadius: new BorderRadius.circular(16.0),
             image: _imageUrl != null
                 ? DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(_imageUrl))
+                    fit: BoxFit.cover, image: NetworkImage(_imageUrl!))
                 : null),
         child: Container(
             alignment: Alignment.bottomLeft,

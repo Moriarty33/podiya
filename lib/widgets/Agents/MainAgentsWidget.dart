@@ -28,10 +28,10 @@ class MainAgentsWidget extends StatelessWidget {
         MainAgentsTabs(),
         Observer(
             builder: (_) => FutureBuilder(
-                  future: AgentDao.getAgents(homeState.agentType),
+                  future: AgentDao.getAgents(homeState.agentType!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      List<Agent> agents = snapshot.data;
+                      List<Agent> agents = snapshot.data as List<Agent>;
                       return MainAgentsList(agents: agents);
                     } else {
                       return Container(

@@ -25,7 +25,7 @@ class WizardPage extends StatefulWidget {
 
 class _WizardPageState extends State<WizardPage> {
   Widget _stepWidget = GeneralInfo();
-  WizardState wizardState;
+  late WizardState wizardState;
   int _stepsCount = 5;
 
   @override
@@ -34,7 +34,7 @@ class _WizardPageState extends State<WizardPage> {
 
     reaction((_) => wizardState.step, (value) {
       setState(() {
-        _stepWidget = renderWidget(value, wizardState.type, context);
+        _stepWidget = renderWidget(value, wizardState.type!, context);
         _stepsCount = wizardState.type == UserType.agent ? 7 : 6;
       });
     });

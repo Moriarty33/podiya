@@ -29,7 +29,7 @@ class EventCityStep extends StatelessWidget {
               label: "Вибране місто",
               selectedItem: findCityById(wizardState.eventCity)["name"],
               onChanged: (cityName) {
-                wizardState.setCity(findCityByName(cityName)["id"] as int);
+                wizardState.setCity(findCityByName(cityName!)["id"] as int);
               },
             ),
           ],

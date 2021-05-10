@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
@@ -8,18 +10,18 @@ class ImagesDao {
 
   static Future<List<String>> uploadImages(List<Asset> images) async {
     List<String> uploadedList = [];
-    User user = FirebaseAuth.instance.currentUser;
-    await Future.forEach(images, (image) async {
+    User user = FirebaseAuth.instance.currentUser!;
+    await Future.forEach(images, (Asset image) async {
       ByteData byteData = await image.getByteData(quality: 50);
-      List<int> imageData = byteData.buffer.asUint8List();
+      Uint8List imageData = byteData.buffer.asUint8List();
       UploadTask task = storage
           .ref()
           .child('images')
           .child(user.uid)
-          .child(image.name + ".jpg")
+          .child(image.name! + ".jpg")
           .putData(imageData);
       TaskSnapshot taskSnapshot = await Future.value(task);
-      uploadedList.add(taskSnapshot.metadata.fullPath);
+      uploadedList.add(taskSnapshot.metadata!.fullPath);
     });
 
     return uploadedList;

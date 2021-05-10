@@ -16,7 +16,7 @@ class AuthPage extends StatelessWidget {
   }
 
   _handleSignIn(BuildContext context) async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAccount googleUser = (await _googleSignIn.signIn())!;
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 

@@ -4,14 +4,14 @@ part 'ToDo.g.dart';
 
 @JsonSerializable()
 class ToDo {
-  String id;
+  String? id;
   String name;
   bool done;
 
   ToDo({
     this.id,
-    this.name,
-    this.done,
+    required this.name,
+    required this.done,
   });
 
   factory ToDo.fromJson(Map<String, dynamic> json) => _$ToDoFromJson(json);

@@ -6,7 +6,7 @@ import '../../theme.dart';
 class AgentInfo extends StatelessWidget {
   Agent agent;
 
-  AgentInfo({this.agent});
+  AgentInfo({required this.agent});
 
   @override
   Widget build(BuildContext context) {

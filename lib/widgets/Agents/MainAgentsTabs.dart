@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../theme.dart';
 
 class MainAgentsTabs extends StatelessWidget {
-  HomeState homeState;
+  late HomeState homeState;
   @override
   Widget build(BuildContext context) {
     homeState = Provider.of<HomeState>(context);
@@ -16,10 +16,10 @@ class MainAgentsTabs extends StatelessWidget {
       height: 40,
       alignment: Alignment.centerLeft,
       child: FutureBuilder(
-        future: TypesDao.getAgentTypesByIds(homeState.event.types),
+        future: TypesDao.getAgentTypesByIds(homeState.event!.types!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            List<AgentType> agents = snapshot.data;
+            List<AgentType> agents = snapshot.data as List<AgentType>;
             return Observer(
                 builder: (_) => ListView(
                     scrollDirection: Axis.horizontal,

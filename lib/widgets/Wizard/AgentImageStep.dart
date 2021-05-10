@@ -10,9 +10,9 @@ import 'StepButton.dart';
 import 'StepInfo.dart';
 
 class AgentImageStep extends StatelessWidget {
-  WizardState wizardState;
-  int selectedImage;
-  List<Asset> uploadedImages;
+  late WizardState wizardState;
+  late int? selectedImage;
+  late List<Asset> uploadedImages;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class AgentImageStep extends StatelessWidget {
                 subtitle:
                     "Останній крок - добав декілька фото до свого профілю а потім вибери головне."),
             SizedBox(height: 24),
-            SelectImages(cbImage: (int image) {
+            SelectImages(cbImage: (int? image) {
               selectedImage = image;
             }, cbImages: (List<Asset> images) {
               uploadedImages = images;
@@ -53,7 +53,7 @@ class AgentImageStep extends StatelessWidget {
   }
 
   handeFinish(context) async {
-    if (uploadedImages?.length == 0) {
+    if (uploadedImages.length == 0) {
       showMessage(context, "Загрузіть фото для вашого профілю");
       return;
     }
@@ -66,7 +66,7 @@ class AgentImageStep extends StatelessWidget {
 
     List<String> urls = await ImagesDao.uploadImages(uploadedImages);
     wizardState.setAgentImages(urls);
-    wizardState.setAgentImage(urls[selectedImage]);
+    wizardState.setAgentImage(urls[selectedImage!]);
     WizardService.agentFinish(context, wizardState.getAgent());
   }
 }

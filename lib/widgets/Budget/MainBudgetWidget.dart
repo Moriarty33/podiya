@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:podiya/dao/DepositDao.dart';
+import 'package:podiya/model/DepositSum.dart';
 import 'package:podiya/state/homeState.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,7 @@ class MainBudgetWidget extends StatefulWidget {
 }
 
 class _MainBudgetWidgetState extends State<MainBudgetWidget> {
-  HomeState homeState;
+  late HomeState homeState;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,10 @@ class _MainBudgetWidgetState extends State<MainBudgetWidget> {
       ]),
       SizedBox(height: 24),
       FutureBuilder(
-          future: DepositDao.depositSum(homeState.event.id),
+          future: DepositDao.depositSum(homeState.event!.id!),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
+              DepositSum depositSum = snapshot.data as DepositSum;
               return GestureDetector(
                 onTap: () {
                   this.openDeposit(context);
@@ -34,9 +36,9 @@ class _MainBudgetWidgetState extends State<MainBudgetWidget> {
                 child: budgetItem(
                     "Завдатки",
                     "Вводь сюди усі завдатки, які передаватимеш підрядникам, щоб нічого не забути !",
-                    snapshot.data.usd.toString() +
+                    depositSum.usd.toString() +
                         "\$ / " +
-                        snapshot.data.uah.toString() +
+                        depositSum.uah.toString() +
                         "₴"),
               );
             } else {
@@ -61,7 +63,7 @@ class _MainBudgetWidgetState extends State<MainBudgetWidget> {
             ),
             context: context,
             builder: (context) =>
-                ShowDepositWidget(eventId: homeState.event.id),
+                ShowDepositWidget(eventId: homeState.event!.id!),
             enableDrag: true)
         .then((value) {
       setState(() {});

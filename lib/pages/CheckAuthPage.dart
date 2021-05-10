@@ -23,7 +23,7 @@ class _CheckAuthPageState extends State<CheckAuthPage> {
     Future(() {
       WidgetsFlutterBinding.ensureInitialized();
       Firebase.initializeApp().then((value) async {
-        User user = FirebaseAuth.instance.currentUser;
+        User? user = FirebaseAuth.instance.currentUser;
         if (user != null) {
           bool userDataExist = await this.userInfoExist();
 

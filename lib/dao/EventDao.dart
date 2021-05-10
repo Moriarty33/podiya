@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class EventDao {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final path = "events";
-  static final User user = FirebaseAuth.instance.currentUser;
+  static final User user = FirebaseAuth.instance.currentUser!;
 
   static Future<String> saveEvent(Event event) {
     event.userId = user.uid;
@@ -17,7 +17,7 @@ class EventDao {
 
   static Future<Event> getEvent(id) {
     return firestore.collection(path).doc(id).get().then((value) {
-      Event event = Event.fromJson(value.data());
+      Event event = Event.fromJson(value.data()!);
       event.id = value.id;
       return event;
     });

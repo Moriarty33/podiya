@@ -13,14 +13,14 @@ import '../../theme.dart';
 class ShowToDoListWidget extends StatefulWidget {
   final ToDoList toDoList;
 
-  ShowToDoListWidget({Key key, this.toDoList}) : super(key: key);
+  ShowToDoListWidget({Key? key, required this.toDoList}) : super(key: key);
 
   @override
   _ShowToDoListWidgetState createState() => _ShowToDoListWidgetState();
 }
 
 class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
-  HomeState homeState;
+  late HomeState homeState;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
                             ),
                             context: context,
                             builder: (context) => AddToDoWidget(
-                                eventId: homeState.event.id,
+                                eventId: homeState.event!.id!,
                                 todoListId: widget.toDoList.id),
                             enableDrag: true)
                         .then((value) {
@@ -63,10 +63,10 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
 
   Widget toDoList() {
     return FutureBuilder<List<ToDo>>(
-        future: ToDoDao.getTodos(homeState.event.id, widget.toDoList.id),
+        future: ToDoDao.getTodos(homeState.event!.id!, widget.toDoList.id),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.data.length == 0) {
+            if (snapshot.data!.length == 0) {
               return Center(
                 child: Text("Поки що у вас немає Справ"),
               );
@@ -74,7 +74,7 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
 
             return ListView(
               padding: EdgeInsets.only(top: 8),
-              children: snapshot.data
+              children: snapshot.data!
                   .map(
                     (ToDo item) => todoItem(item),
                   )
@@ -94,8 +94,8 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
       child: CheckboxListTile(
         title: Text(item.name),
         value: item.done,
-        onChanged: (bool val) {
-          ToDoDao.todoDone(homeState.event.id, widget.toDoList.id, item.id, val)
+        onChanged: (bool? val) {
+          ToDoDao.todoDone(homeState.event!.id!, widget.toDoList.id, item.id!, val!)
               .then((value) {
             setState(() {});
           });
@@ -121,7 +121,7 @@ class _ShowToDoListWidgetState extends State<ShowToDoListWidget> {
                   child: Text("Видалити"),
                   onPressed: () async {
                     ToDoDao.deleteTodo(
-                        homeState.event.id, widget.toDoList.id, todo.id);
+                        homeState.event!.id!, widget.toDoList.id, todo.id!);
                     setState(() {});
                     Navigator.of(context).pop();
                   },

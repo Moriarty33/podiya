@@ -10,14 +10,14 @@ class Deposit {
       _$DepositFromJson(json);
   Map<String, dynamic> toJson() => _$DepositToJson(this);
 
-  String id;
+  String id = "";
 
   Deposit(
-      {this.eventId,
-      this.currency,
-      this.amount,
-      this.category,
-      this.description});
+      {required this.eventId,
+        required this.currency,
+        required this.amount,
+        required this.category,
+        required this.description});
 
   String eventId;
   Currency currency;

@@ -11,5 +11,5 @@ class DepositSum {
   int uah;
   int usd;
 
-  DepositSum({this.uah, this.usd});
+  DepositSum({required this.uah, required this.usd});
 }

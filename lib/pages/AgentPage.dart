@@ -10,7 +10,7 @@ class AgentPage extends StatefulWidget {
   String id;
   String imageUrl;
 
-  AgentPage({this.id, this.imageUrl});
+  AgentPage({required this.id, required this.imageUrl});
 
   @override
   _AgentPageState createState() => _AgentPageState();
@@ -49,7 +49,7 @@ class _AgentPageState extends State<AgentPage> {
             future: AgentDao.getAgent(widget.id),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                Agent agent = snapshot.data;
+                Agent agent = snapshot.data as Agent;
                 return DraggableScrollableSheet(
                     initialChildSize: 0.55,
                     maxChildSize: 0.95,

@@ -5,7 +5,7 @@ class StepInfo extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const StepInfo({this.title, this.subtitle});
+  const StepInfo({required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {

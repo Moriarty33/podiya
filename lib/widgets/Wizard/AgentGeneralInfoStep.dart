@@ -10,12 +10,12 @@ import 'StepInfo.dart';
 class AgentGeneralInfoStep extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final descriptionField = TextEditingController();
-  WizardState wizardState;
+  late WizardState wizardState;
 
   @override
   Widget build(BuildContext context) {
     wizardState = Provider.of<WizardState>(context);
-    descriptionField.text = wizardState.agentDescription;
+    descriptionField.text = wizardState.agentDescription!;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +36,7 @@ class AgentGeneralInfoStep extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                     controller: descriptionField,
                     validator: (value) {
-                      if (value.trim().isEmpty) {
+                      if (value!.trim().isEmpty) {
                         return 'Будь ласка введіть інформацію';
                       }
                       return null;
@@ -54,7 +54,7 @@ class AgentGeneralInfoStep extends StatelessWidget {
               text: "Далі",
               next: true,
               cb: () {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   wizardState.setAgentDescription(descriptionField.text.trim());
                   wizardState.increment();
                 }

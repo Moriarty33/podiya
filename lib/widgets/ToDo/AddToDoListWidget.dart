@@ -10,7 +10,7 @@ import '../../theme.dart';
 class AddToDoListWidget extends StatefulWidget {
   final Function() cb;
 
-  const AddToDoListWidget({Key key, this.cb}) : super(key: key);
+  const AddToDoListWidget({Key? key, required this.cb}) : super(key: key);
 
   @override
   _AddToDoListWidgetState createState() => _AddToDoListWidgetState();
@@ -21,7 +21,7 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
   final field = TextEditingController();
 
   IconData _icon = Icons.home;
-  HomeState homeState;
+  late HomeState homeState;
   bool loading = false;
 
   @override
@@ -54,7 +54,7 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
               decoration: InputDecoration(hintText: 'Назва списку'),
               controller: field,
               validator: (value) {
-                if (value.trim().isEmpty) {
+                if (value!.trim().isEmpty) {
                   return 'Будь ласка введіть назву';
                 }
                 return null;
@@ -91,8 +91,8 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
   }
 
   _pickIcon() async {
-    IconData icon = await FlutterIconPicker.showIconPicker(context,
-        iconPackMode: IconPack.material);
+    IconData icon = (await FlutterIconPicker.showIconPicker(context,
+        iconPackMode: IconPack.material))!;
 
     setState(() {
       _icon = icon;
@@ -100,11 +100,11 @@ class _AddToDoListWidgetState extends State<AddToDoListWidget> {
   }
 
   _create(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       setState(() {
         loading = true;
       });
-      await ToDoDao.createList(homeState.event.id,
+      await ToDoDao.createList(homeState.event!.id!,
           ToDoList(icon: _icon.codePoint.toString(), name: field.value.text));
       widget.cb();
       Navigator.pop(context);

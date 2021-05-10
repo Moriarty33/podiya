@@ -9,7 +9,7 @@ import 'StepInfo.dart';
 
 class AgentContactStep extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  WizardState wizardState;
+  late WizardState wizardState;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class AgentContactStep extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                  phoneNumber(wizardState.agentPhoneNumber),
+                  phoneNumber(wizardState.agentPhoneNumber!),
                   SizedBox(height: 24),
                   webSite(),
                   SizedBox(height: 8),
@@ -50,8 +50,8 @@ class AgentContactStep extends StatelessWidget {
               text: "Далі",
               next: true,
               cb: () {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
                   AgentLinks agentLinks = AgentLinks(
                     website: webSiteController.text,
                     facebook: facebookController.text,
@@ -70,7 +70,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController webSiteController = TextEditingController();
 
   Widget webSite() {
-    webSiteController.text = wizardState.agentLinks.website;
+    webSiteController.text = wizardState.agentLinks.website!;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Веб Сайт'),
         controller: webSiteController);
@@ -79,7 +79,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController facebookController = TextEditingController();
 
   Widget facebook() {
-    facebookController.text = wizardState.agentLinks.facebook;
+    facebookController.text = wizardState.agentLinks.facebook!;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Фейсбук'),
         controller: facebookController);
@@ -88,7 +88,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController instagramController = TextEditingController();
 
   Widget instagram() {
-    instagramController.text = wizardState.agentLinks.instagram;
+    instagramController.text = wizardState.agentLinks.instagram!;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Інстаграм'),
         controller: instagramController);
@@ -97,7 +97,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController otherController = TextEditingController();
 
   Widget other() {
-    otherController.text = wizardState.agentLinks.other;
+    otherController.text = wizardState.agentLinks.other!;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Інше посилання'),
         controller: otherController);

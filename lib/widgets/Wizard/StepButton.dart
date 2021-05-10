@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 class StepButton extends StatelessWidget {
   final String text;
   final bool next;
-  final Function() cb;
+  final Function()? cb;
 
-  const StepButton({this.text, this.next = true, this.cb});
+  const StepButton({required this.text, this.next = true, this.cb});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class StepButton extends StatelessWidget {
           padding: EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
           onPressed: () {
             if (this.cb != null) {
-              cb();
+              cb!();
               return;
             }
 

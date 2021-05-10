@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 import '../theme.dart';
 
 class HomePage extends StatefulWidget {
-  final String message;
+  final String? message;
 
   const HomePage({
-    Key key,
+    Key? key,
     this.message,
   }) : super(key: key);
 
@@ -27,22 +27,22 @@ class _HomePageState extends State<HomePage> {
 
     if (widget.message != null) {
       Future(() {
-        final snackBar = SnackBar(content: Text(widget.message));
+        final snackBar = SnackBar(content: Text(widget.message!));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
     }
   }
 
   GlobalKey _bottomNavigationKey = GlobalKey();
-  HomeState homeState;
-  Widget _pageWidget;
-  PreferredSizeWidget _appBarWidget;
+  late HomeState homeState;
+  late Widget _pageWidget;
+  late PreferredSizeWidget _appBarWidget;
 
   @override
   Widget build(BuildContext context) {
     homeState = Provider.of<HomeState>(context);
     setPageWidget(homeState.page, context);
-    reaction((_) => homeState.page, (value) => setPageWidget(value, context));
+    reaction((_) => homeState.page, (int value) => setPageWidget(value, context));
     return Material(
         child: Scaffold(
             bottomNavigationBar: nivigation(),
@@ -71,8 +71,7 @@ class _HomePageState extends State<HomePage> {
       animationDuration: Duration(milliseconds: 500),
       onTap: (index) {
         homeState.setPage(index);
-      },
-      letIndexChange: (index) => true,
+      }
     );
   }
 

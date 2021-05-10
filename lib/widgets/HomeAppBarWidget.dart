@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../theme.dart';
 
 class HomeAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  HomeState homeState;
+  late HomeState homeState;
+
   Widget events() {
     return GestureDetector(
       child: Container(
@@ -32,10 +33,7 @@ class HomeAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           builder: (_) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                  homeState.event != null
-                      ? homeState.event.name.toString()
-                      : "",
+              Text(homeState.event?.name?.toString() ?? "",
                   style: EventNameMainPageStyle),
               Text("Залишилось 29 днів", style: EventDateMainPageStyle)
             ],

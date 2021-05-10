@@ -16,13 +16,13 @@ abstract class _WizardState with Store {
   int step = 0;
 
   @observable
-  UserType type;
+  UserType? type;
 
   @observable
-  String eventName;
+  String? eventName;
 
   @observable
-  DateTime eventDate;
+  DateTime? eventDate;
 
   @observable
   int eventCity = 0;
@@ -33,13 +33,13 @@ abstract class _WizardState with Store {
   // AGENT
 
   @observable
-  String agentDescription;
+  String? agentDescription;
 
   @observable
   List<int> agentCitiesIds = [];
 
   @observable
-  String agentPhoneNumber;
+  String? agentPhoneNumber;
 
   @observable
   AgentLinks agentLinks = AgentLinks();
@@ -51,7 +51,7 @@ abstract class _WizardState with Store {
   List<String> agentImages = [];
 
   @observable
-  String agentImage;
+  String? agentImage;
 
   @action
   void increment() {
@@ -127,23 +127,23 @@ abstract class _WizardState with Store {
 
   Event getEvent() {
     return new Event(
-        name: eventName, city: eventCity, date: eventDate, types: agentTypeIds);
+        name: eventName as String, city: eventCity, date: eventDate as DateTime, types: agentTypeIds);
   }
 
   Agent getAgent() {
-    User user = FirebaseAuth.instance.currentUser;
-    String firstname = user.displayName.split(" ")[0];
-    String lastname = user.displayName.split(" ")[1];
+    User user = FirebaseAuth.instance.currentUser!;
+    String firstname = user.displayName!.split(" ")[0];
+    String lastname = user.displayName!.split(" ")[1];
 
     return new Agent(
         amount: agentAmount,
         cities: agentCitiesIds,
-        description: agentDescription,
+        description: agentDescription as String,
         firstname: firstname,
         lastname: lastname,
-        image: agentImage,
+        image: agentImage as String,
         images: agentImages,
-        phoneNumber: agentPhoneNumber,
+        phoneNumber: agentPhoneNumber as String,
         types: agentTypeIds,
         links: agentLinks);
   }

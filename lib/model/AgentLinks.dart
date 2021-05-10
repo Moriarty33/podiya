@@ -4,16 +4,16 @@ part 'AgentLinks.g.dart';
 
 @JsonSerializable()
 class AgentLinks {
-  String website;
-  String facebook;
-  String instagram;
-  String other;
+  String? website;
+  String? facebook;
+  String? instagram;
+  String? other;
 
   AgentLinks({
-    this.website,
-    this.facebook,
-    this.instagram,
-    this.other,
+     this.website,
+     this.facebook,
+     this.instagram,
+     this.other,
   });
 
   factory AgentLinks.fromJson(Map<String, dynamic> json) =>

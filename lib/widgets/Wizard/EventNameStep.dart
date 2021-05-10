@@ -12,7 +12,7 @@ class EventNameStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WizardState wizardState = Provider.of<WizardState>(context);
-    field.text = wizardState.eventName;
+    field.text = wizardState.eventName!;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +31,7 @@ class EventNameStep extends StatelessWidget {
                       hintText: 'Напишу назву події яку б ти хотів бачити'),
                   controller: field,
                   validator: (value) {
-                    if (value.trim().isEmpty) {
+                    if (value!.trim().isEmpty) {
                       return 'Будь ласка введіть назву';
                     }
                     return null;
@@ -46,7 +46,7 @@ class EventNameStep extends StatelessWidget {
               text: "Далі",
               next: true,
               cb: () {
-                if (_formKey.currentState.validate()) {
+                if (_formKey.currentState!.validate()) {
                   wizardState.setName(field.text.trim());
                 }
               }),

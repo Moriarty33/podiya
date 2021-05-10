@@ -5,7 +5,7 @@ import 'package:podiya/widgets/Agents/AgentCardWidget.dart';
 class MainAgentsList extends StatelessWidget {
   final List<Agent> agents;
 
-  MainAgentsList({this.agents});
+  MainAgentsList({required this.agents});
 
   @override
   Widget build(BuildContext context) {

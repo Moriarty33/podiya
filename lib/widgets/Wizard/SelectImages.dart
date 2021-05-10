@@ -3,12 +3,12 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 
 class SelectImages extends StatefulWidget {
   final Function(List<Asset> images) cbImages;
-  final Function(int image) cbImage;
+  final Function(int? image) cbImage;
 
   const SelectImages({
-    Key key,
-    this.cbImages,
-    this.cbImage,
+    Key? key,
+    required this.cbImages,
+    required this.cbImage,
   }) : super(key: key);
 
   @override
@@ -16,8 +16,8 @@ class SelectImages extends StatefulWidget {
 }
 
 class _SelectImagesState extends State<SelectImages> {
-  List<Asset> images = List<Asset>();
-  int image;
+  List<Asset> images = [];
+  int? image;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _SelectImagesState extends State<SelectImages> {
   }
 
   Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
+    List<Asset> resultList = [];
 
     try {
       resultList = await MultiImagePicker.pickImages(

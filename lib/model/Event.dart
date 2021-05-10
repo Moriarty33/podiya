@@ -5,20 +5,20 @@ part 'Event.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Event {
-  String id;
+  String? id;
   String name;
   DateTime date;
   int city;
-  List<String> types;
-  List<ToDoList> toDoList;
+  List<String>? types = [];
+  List<ToDoList>? toDoList = [];
 
-  String userId;
+  String? userId;
 
   Event({
-    this.name,
-    this.date,
-    this.city,
-    this.types,
+    required this.name,
+    required this.date,
+    required this.city,
+    required this.types,
     this.userId,
   });
 

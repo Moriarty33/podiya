@@ -12,24 +12,24 @@ class HomeState = _HomeState with _$HomeState;
 // The store-class
 abstract class _HomeState with Store {
   @observable
-  UserData userData;
+  UserData? userData;
 
   @observable
-  Event event;
+  Event? event;
 
   @observable
   int page = 0;
 
   @observable
-  String agentType;
+  String? agentType;
 
   @action
-  Future<UserData> init() async {
+  Future<UserData?> init() async {
     UserData u = await UserDataDao.getData();
     Event e = await EventDao.getEvent(u.event);
     setUserData(u);
     setEvent(e);
-    setAgentType(e.types[0]);
+    setAgentType(e.types![0]);
 
     return userData;
   }

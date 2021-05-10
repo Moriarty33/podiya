@@ -4,13 +4,13 @@ part 'ToDoList.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class ToDoList {
-  String id;
+  String id ="";
   String name;
   String icon;
 
   ToDoList({
-    this.name,
-    this.icon,
+    required this.name,
+    required this.icon,
   });
 
   factory ToDoList.fromJson(Map<String, dynamic> json) =>

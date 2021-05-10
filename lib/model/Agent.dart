@@ -6,13 +6,13 @@ part 'Agent.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Agent {
-  String id;
+  String id = "";
   String firstname;
   String lastname;
   String description;
   String phoneNumber;
   String image;
-  String userId;
+  String userId = "";
 
   double amount;
 
@@ -23,16 +23,16 @@ class Agent {
   List<String> types;
 
   Agent({
-    this.firstname,
-    this.lastname,
-    this.description,
-    this.phoneNumber,
-    this.image,
-    this.amount,
-    this.images,
-    this.cities,
-    this.types,
-    this.links,
+    required this.firstname,
+    required this.lastname,
+    required this.description,
+    required this.phoneNumber,
+    required this.image,
+    required this.amount,
+    required this.images,
+    required this.cities,
+    required this.types,
+    required this.links,
   });
 
   factory Agent.fromJson(Map<String, dynamic> json) => _$AgentFromJson(json);

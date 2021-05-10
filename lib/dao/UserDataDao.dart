@@ -7,13 +7,13 @@ class UserDataDao {
   static final path = "usersData";
 
   static Future<UserData> getData() {
-    User user = FirebaseAuth.instance.currentUser;
+    User user = FirebaseAuth.instance.currentUser!;
     return firestore.collection(path).doc(user.uid).get().then(
-        (value) => UserData.fromJson(value.data()));
+        (value) => UserData.fromJson(value.data()!));
   }
 
   static createData(UserData data) {
-    User user = FirebaseAuth.instance.currentUser;
+    User user = FirebaseAuth.instance.currentUser!;
     return firestore.collection(path).doc(user.uid).set(data.toJson());
   }
 }

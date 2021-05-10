@@ -5,7 +5,7 @@ import 'package:podiya/model/Agent.dart';
 class AgentDao {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final path = "agents";
-  static final User user = FirebaseAuth.instance.currentUser;
+  static final User user = FirebaseAuth.instance.currentUser!;
 
   static saveAgent(Agent agent) {
     agent.userId = user.uid;
@@ -34,7 +34,7 @@ class AgentDao {
         .doc(id)
         .get()
         .then((value) {
-          return Agent.fromJson(value.data());
+          return Agent.fromJson(value.data()!);
     });
   }
 }

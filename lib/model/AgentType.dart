@@ -7,7 +7,7 @@ class AgentType {
   String id;
   String name;
 
-  AgentType({this.id, this.name});
+  AgentType({required  this.id, required this.name});
 
   factory AgentType.fromJson(Map<String, dynamic> json) =>
       _$AgentTypeFromJson(json);

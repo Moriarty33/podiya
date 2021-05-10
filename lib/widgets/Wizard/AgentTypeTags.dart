@@ -52,8 +52,8 @@ class _AgentTypeTagsState extends State<AgentTypeTags> {
             combine: ItemTagsCombine.withTextBefore,
             customData: item.id,
             activeColor: Colors.black,
-            color: Colors.grey[300],
-            textColor: Colors.grey[600],
+            color: Colors.grey,
+            textColor: Colors.grey,
             border: Border.all(color: Colors.transparent),
             elevation: 1,
             onPressed: (_) {
@@ -66,7 +66,7 @@ class _AgentTypeTagsState extends State<AgentTypeTags> {
   }
 
   List<String> _getAllItem() {
-    List<Item> lst = _tagStateKey.currentState?.getAllItem;
+    List<Item> lst = _tagStateKey.currentState?.getAllItem as List<Item>;
     if (lst != null) {
       List<String> ids = lst
           .where((a) => a.active == true)

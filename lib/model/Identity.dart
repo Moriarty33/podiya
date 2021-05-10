@@ -7,13 +7,17 @@ class Identity extends GoogleIdentity {
   String displayName;
   String photoUrl;
 
-  Identity({this.id, this.email, this.displayName, this.photoUrl});
+  Identity(
+      {required this.id,
+      required this.email,
+      required this.displayName,
+      required this.photoUrl});
 
   factory Identity.fromFirebaseUser(User user) {
     return Identity(
         id: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoUrl: user.photoURL);
+        email: user.email as String,
+        displayName: user.displayName as String,
+        photoUrl: user.photoURL as String);
   }
 }
