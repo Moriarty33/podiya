@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 // import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:podiya/model/AgentLinks.dart';
 import 'package:podiya/state/wizardState.dart';
@@ -29,7 +30,7 @@ class AgentContactStep extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                  phoneNumber(wizardState.agentPhoneNumber!),
+                  phoneNumber(wizardState.agentPhoneNumber),
                   SizedBox(height: 24),
                   webSite(),
                   SizedBox(height: 8),
@@ -70,7 +71,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController webSiteController = TextEditingController();
 
   Widget webSite() {
-    webSiteController.text = wizardState.agentLinks.website!;
+    webSiteController.text = wizardState.agentLinks.website;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Веб Сайт'),
         controller: webSiteController);
@@ -79,7 +80,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController facebookController = TextEditingController();
 
   Widget facebook() {
-    facebookController.text = wizardState.agentLinks.facebook!;
+    facebookController.text = wizardState.agentLinks.facebook;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Фейсбук'),
         controller: facebookController);
@@ -88,7 +89,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController instagramController = TextEditingController();
 
   Widget instagram() {
-    instagramController.text = wizardState.agentLinks.instagram!;
+    instagramController.text = wizardState.agentLinks.instagram;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Інстаграм'),
         controller: instagramController);
@@ -97,7 +98,7 @@ class AgentContactStep extends StatelessWidget {
   final TextEditingController otherController = TextEditingController();
 
   Widget other() {
-    otherController.text = wizardState.agentLinks.other!;
+    otherController.text = wizardState.agentLinks.other;
     return TextFormField(
         decoration: InputDecoration(hintText: 'Інше посилання'),
         controller: otherController);
@@ -107,25 +108,24 @@ class AgentContactStep extends StatelessWidget {
   String initialCountry = 'UA';
 
   Widget phoneNumber(String phoneNumber) {
-    return Container();
+    PhoneNumber number =
+    PhoneNumber(isoCode: initialCountry, phoneNumber: phoneNumber);
+    return InternationalPhoneNumberInput(
+        onSaved: (PhoneNumber number) {
+          wizardState.setAgentPhoneNumber(number.phoneNumber!);
+        },
+        onInputChanged: (PhoneNumber number){},
+        hintText: "93 777 7777",
+        cursorColor: Colors.black,
+        selectorConfig: SelectorConfig(showFlags: false),
+        ignoreBlank: false,
+        autoValidateMode: AutovalidateMode.onUserInteraction,
+        errorMessage: "Номер телефону має не вірний формат",
+        selectorTextStyle: TextStyle(color: Colors.black),
+        initialValue: number,
+        textFieldController: phoneNumberController,
+        formatInput: true,
+        countries: ["UA"],
+        keyboardType: TextInputType.numberWithOptions(decimal: true));
   }
-  //   PhoneNumber number =
-  //       PhoneNumber(isoCode: initialCountry, phoneNumber: phoneNumber);
-  //   return InternationalPhoneNumberInput(
-  //       onSaved: (PhoneNumber number) {
-  //         wizardState.setAgentPhoneNumber(number.phoneNumber);
-  //       },
-  //       hintText: "93 777 7777",
-  //       cursorColor: Colors.black,
-  //       selectorConfig: SelectorConfig(showFlags: false),
-  //       ignoreBlank: false,
-  //       autoValidateMode: AutovalidateMode.onUserInteraction,
-  //       errorMessage: "Номер телефону має не вірний формат",
-  //       selectorTextStyle: TextStyle(color: Colors.black),
-  //       initialValue: number,
-  //       textFieldController: phoneNumberController,
-  //       formatInput: true,
-  //       countries: ["UA"],
-  //       keyboardType: TextInputType.numberWithOptions(decimal: true));
-  // }
 }

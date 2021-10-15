@@ -53,7 +53,7 @@ class _AgentTypeTagsState extends State<AgentTypeTags> {
             customData: item.id,
             activeColor: Colors.black,
             color: Colors.grey,
-            textColor: Colors.grey,
+            textColor: Colors.white,
             border: Border.all(color: Colors.transparent),
             elevation: 1,
             onPressed: (_) {

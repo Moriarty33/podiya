@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:podiya/pages/SettingsPage.dart';
 import 'package:podiya/state/homeState.dart';
 import 'package:podiya/widgets/HomeAppBarWidget.dart';
 import 'package:podiya/widgets/home/HomeWidget.dart';
@@ -91,8 +92,7 @@ class _HomePageState extends State<HomePage> {
       if (page == 2) {
         _appBarWidget = appbar("Settings");
         _pageWidget = Material(
-            child: Container(
-                padding: EdgeInsets.all(65), child: Text("settings")));
+            child: SettingsPage());
       }
     });
   }

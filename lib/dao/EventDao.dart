@@ -17,9 +17,9 @@ class EventDao {
 
   static Future<Event> getEvent(id) {
     return firestore.collection(path).doc(id).get().then((value) {
-      Event event = Event.fromJson(value.data()!);
-      event.id = value.id;
-      return event;
+        Event event = Event.fromJson(value.data()!);
+        event.id = value.id;
+        return event;
     });
   }
 

@@ -33,13 +33,13 @@ abstract class _WizardState with Store {
   // AGENT
 
   @observable
-  String? agentDescription;
+  String agentDescription = "";
 
   @observable
   List<int> agentCitiesIds = [];
 
   @observable
-  String? agentPhoneNumber;
+  String agentPhoneNumber = "";
 
   @observable
   AgentLinks agentLinks = AgentLinks();
@@ -138,12 +138,12 @@ abstract class _WizardState with Store {
     return new Agent(
         amount: agentAmount,
         cities: agentCitiesIds,
-        description: agentDescription as String,
+        description: agentDescription,
         firstname: firstname,
         lastname: lastname,
         image: agentImage as String,
         images: agentImages,
-        phoneNumber: agentPhoneNumber as String,
+        phoneNumber: agentPhoneNumber,
         types: agentTypeIds,
         links: agentLinks);
   }

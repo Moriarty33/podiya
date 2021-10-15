@@ -15,7 +15,7 @@ class AgentGeneralInfoStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     wizardState = Provider.of<WizardState>(context);
-    descriptionField.text = wizardState.agentDescription!;
+    descriptionField.text = wizardState.agentDescription;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
